@@ -1,0 +1,10 @@
+.app {
+  min-width: 340px;
+  max-width: 640px;
+  width: 70vw;
+  margin: 0 auto;
+}
+
+.app-header {
+  text-align: center;
+}
