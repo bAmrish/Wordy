@@ -4,6 +4,7 @@ import words from "../assets/words/word-list.json";
 import dictionary from "../assets/words/word-list-comprehensive.json";
 import Board from "./board/Board";
 import Message from "./message/Message";
+import Keyboard from "./keyboard/Keyboard";
 
 const initRows = () => {
   const initTiles = () => {
@@ -43,6 +44,7 @@ const Game = () => {
   const [message, setMessage] = useState(null);
   const [answer] = useState(word);
   const [rows, setRows] = useState(initRows());
+  const [keyStatusMap, setKeyStatusMap] = useState({});
 
   const addChar = (key) => {
     const char = key.toUpperCase();
@@ -95,6 +97,8 @@ const Game = () => {
 
   const checkAnswer = () => {
     setMessage(null);
+    console.log({ keyStatusMap });
+
     const updatedRows = [...rows];
     const currentRowIndex = updatedRows.findIndex(
       (row) => row.status === "CURRENT"
@@ -165,6 +169,31 @@ const Game = () => {
   };
 
   useEffect(() => {
+    setKeyStatusMap((prevStatus) => {
+      const updatedKeyStatuses = JSON.parse(JSON.stringify(prevStatus));
+
+      for (const row of rows) {
+        for (const tile of row.tiles) {
+          const currentKeyStatus = updatedKeyStatuses[tile.value];
+          if (tile.status === "CORRECT") {
+            updatedKeyStatuses[tile.value] = "CORRECT";
+          } else if (tile.status === "WARN" && currentKeyStatus !== "CORRECT") {
+            updatedKeyStatuses[tile.value] = "WARN";
+          } else if (
+            tile.status === "INCORRECT" &&
+            currentKeyStatus !== "CORRECT" &&
+            currentKeyStatus !== "WARN"
+          ) {
+            updatedKeyStatuses[tile.value] = "INCORRECT";
+          }
+        }
+      }
+
+      return updatedKeyStatuses;
+    });
+  }, [rows]);
+
+  useEffect(() => {
     const keydownListener = (event) => {
       handleKey(event.key);
     };
@@ -181,6 +210,7 @@ const Game = () => {
         {message && <Message message={message} />}
         <Board rows={rows} />
       </div>
+      <Keyboard keyStatus={keyStatusMap} onKey={handleKey} />
     </div>
   );
 };
