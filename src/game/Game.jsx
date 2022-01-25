@@ -1,6 +1,8 @@
 import classes from "./Game.module.css";
 import { useEffect, useState } from "react";
 import words from "../assets/words/word-list.json";
+import dictionary from "../assets/words/word-list-comprehensive.json";
+import Board from "./board/Board";
 
 const initRows = () => {
   const initTiles = () => {
@@ -34,13 +36,11 @@ const getNewWord = () => {
   console.log({ totalWords, random, word });
   return word.word;
 };
-const ALL_WORDS = words.map((w) => w.word);
 const word = getNewWord().toUpperCase();
 
 const Game = () => {
   const [answer] = useState(word);
   const [rows, setRows] = useState(initRows());
-  // const [answer, setAnswer] = useState(useCallback(getNewWord()));
 
   const addChar = (key) => {
     const char = key.toUpperCase();
@@ -107,7 +107,7 @@ const Game = () => {
       return;
     }
 
-    if (ALL_WORDS.indexOf(guess.toLowerCase()) === -1) {
+    if (dictionary.indexOf(guess.toLowerCase()) === -1) {
       console.warn(`${guess} is not in dictionary!`);
       return;
     }
@@ -127,6 +127,11 @@ const Game = () => {
     if (guess === answer) {
       console.info("game won!");
       currentRow.status = "EVALUATED";
+      for (let i = currentRowIndex + 1; i < updatedRows.length; i++) {
+        const row = updatedRows[i];
+        row.status = "DISABLED";
+        row.tiles.forEach((tile) => (tile.status = "DISABLED"));
+      }
     } else if (currentRowIndex === updatedRows.length - 1) {
       console.warn(`game lost! the word was ${answer}`);
     } else {
@@ -161,43 +166,12 @@ const Game = () => {
     return () => {
       document.removeEventListener("keydown", keydownListener);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const rowNodes = rows.map((row) => {
-    const tiles = row.tiles.map((tile) => {
-      let className = classes.tile;
-      switch (tile.status) {
-        case "SELECTED":
-          className += " " + classes.selected;
-          break;
-        case "INCORRECT":
-          className += " " + classes.incorrect;
-          break;
-        case "CORRECT":
-          className += " " + classes.success;
-          break;
-        case "WARN":
-          className += " " + classes.warn;
-          break;
-        default:
-          break;
-      }
-
-      return (
-        <div key={tile.id} className={className}>
-          {tile.value}
-        </div>
-      );
-    });
-    return (
-      <div key={row.id} className={classes.row}>
-        {tiles}
-      </div>
-    );
-  });
   return (
     <div className={classes.game}>
-      <div className={classes.board}>{rowNodes}</div>
+      <Board rows={rows} />
     </div>
   );
 };
