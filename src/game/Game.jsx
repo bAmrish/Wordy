@@ -95,10 +95,20 @@ const Game = () => {
     setRows(updatedRows);
   };
 
+  const getTileStatus = (index, guess, answer) => {
+    if (guess[index] === answer[index]) {
+      return "CORRECT";
+    }
+
+    if (answer.indexOf(guess[index]) > -1) {
+      return "WARN";
+    }
+
+    return "INCORRECT";
+  };
+
   const checkAnswer = () => {
     setMessage(null);
-    console.log({ keyStatusMap });
-
     const updatedRows = [...rows];
     const currentRowIndex = updatedRows.findIndex(
       (row) => row.status === "CURRENT"
@@ -123,14 +133,7 @@ const Game = () => {
 
     for (let i = 0; i < currentRow.tiles.length; i++) {
       const tile = currentRow.tiles[i];
-      const guessIndex = answer.indexOf(tile.value);
-      if (guessIndex === i) {
-        tile.status = "CORRECT";
-      } else if (guessIndex > -1) {
-        tile.status = "WARN";
-      } else {
-        tile.status = "INCORRECT";
-      }
+      tile.status = getTileStatus(i, guess, answer);
     }
 
     if (guess === answer) {
