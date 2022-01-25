@@ -1,0 +1,23 @@
+.message {
+    display: inline-flex;
+    text-align: center;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+}
+
+.message.error {
+    background-color: #f7c1a6;
+    border: 1px solid #f8b390;
+}
+
+.message.warn {
+    background-color: #f7e7a6;
+    border: 2px solid #f9da54;
+}
+
+.message.success {
+    background-color: #a6f7b8;
+    border: 2px solid #62f954;
+}

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import words from "../assets/words/word-list.json";
 import dictionary from "../assets/words/word-list-comprehensive.json";
 import Board from "./board/Board";
+import Message from "./message/Message";
 
 const initRows = () => {
   const initTiles = () => {
@@ -39,6 +40,7 @@ const getNewWord = () => {
 const word = getNewWord().toUpperCase();
 
 const Game = () => {
+  const [message, setMessage] = useState(null);
   const [answer] = useState(word);
   const [rows, setRows] = useState(initRows());
 
@@ -92,6 +94,7 @@ const Game = () => {
   };
 
   const checkAnswer = () => {
+    setMessage(null);
     const updatedRows = [...rows];
     const currentRowIndex = updatedRows.findIndex(
       (row) => row.status === "CURRENT"
@@ -103,11 +106,13 @@ const Game = () => {
       .join("")
       .toUpperCase();
     if (guess.length !== currentRow.tiles.length) {
+      setMessage({ type: "warn", text: "Need all 5 letters of the word." });
       console.warn("incomplete answer", guess);
       return;
     }
 
     if (dictionary.indexOf(guess.toLowerCase()) === -1) {
+      setMessage({ type: "warn", text: `${guess} is not in dictionary.` });
       console.warn(`${guess} is not in dictionary!`);
       return;
     }
@@ -125,7 +130,7 @@ const Game = () => {
     }
 
     if (guess === answer) {
-      console.info("game won!");
+      setMessage({ type: "success", text: "You Guessed it!" });
       currentRow.status = "EVALUATED";
       for (let i = currentRowIndex + 1; i < updatedRows.length; i++) {
         const row = updatedRows[i];
@@ -133,7 +138,8 @@ const Game = () => {
         row.tiles.forEach((tile) => (tile.status = "DISABLED"));
       }
     } else if (currentRowIndex === updatedRows.length - 1) {
-      console.warn(`game lost! the word was ${answer}`);
+      setMessage({ type: "error", text: `The word was ${answer}` });
+      console.warn(`😞 game lost! the word was ${answer}`);
     } else {
       currentRow.status = "EVALUATED";
       const nextRow = updatedRows[currentRowIndex + 1];
@@ -171,7 +177,10 @@ const Game = () => {
 
   return (
     <div className={classes.game}>
-      <Board rows={rows} />
+      <div className={classes["board-container"]}>
+        {message && <Message message={message} />}
+        <Board rows={rows} />
+      </div>
     </div>
   );
 };
