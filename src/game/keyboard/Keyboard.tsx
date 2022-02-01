@@ -73,15 +73,9 @@ const Keyboard: FC<{
   const keyHandler = (key: string) => {
     props.onKey(key);
   };
-  topRow.keys.forEach(
-    key => (key.status = props.keyStatus[key.value.toUpperCase()])
-  );
-  middleRow.keys.forEach(
-    key => (key.status = props.keyStatus[key.value.toUpperCase()])
-  );
-  bottomRow.keys.forEach(
-    key => (key.status = props.keyStatus[key.value.toUpperCase()])
-  );
+  topRow.keys.forEach(key => (key.status = props.keyStatus[key.value]));
+  middleRow.keys.forEach(key => (key.status = props.keyStatus[key.value]));
+  bottomRow.keys.forEach(key => (key.status = props.keyStatus[key.value]));
   return (
     <div className={classes.keyboard}>
       <Row row={topRow} onKey={keyHandler} />

@@ -9,6 +9,7 @@ import HelperService from './service/helper';
 import TileModel, { StatusType } from './models/tile.model';
 import RowModel from './models/row.model';
 import MessageModel from './models/message.model';
+import GameModel from './models/game.model';
 
 const initTiles = (): TileModel[] => {
   const tiles: TileModel[] = [];
@@ -35,19 +36,26 @@ const initRows = (): RowModel[] => {
   return rows;
 };
 
-const word = HelperService.getNewWord().toUpperCase();
+const createGame = (): GameModel => {
+  const id = HelperService.getNewId();
+  const rows = initRows();
+  const [seed, answer] = HelperService.getNewWord();
+  const game = new GameModel(id, rows, 'PLAYING', answer, seed);
+  console.log(game);
+  return game;
+};
+
+const initialGame = createGame();
 
 const Game = () => {
   const [message, setMessage] = useState<MessageModel | null>(null);
-  const [answer] = useState(word);
-  const [rows, setRows] = useState(initRows());
-  const [keyStatusMap, setKeyStatusMap] = useState<{
-    [key: string]: StatusType;
-  }>({});
+  const [game, setGame] = useState<GameModel>(initialGame);
+  const [keyStatus, setKeyStatus] = useState<{ [key: string]: StatusType }>({});
 
   const addChar = (key: string) => {
-    const char = key.toUpperCase();
-    const updatedRows = [...rows];
+    const updatedGame = game.clone();
+    const char = key.toLowerCase();
+    const updatedRows = [...updatedGame.rows];
     const currentRow = updatedRows.filter(row => row.status === 'CURRENT')[0];
 
     const selectedTileIndex = currentRow.tiles.findIndex(
@@ -67,11 +75,13 @@ const Game = () => {
     ) {
       selectedTile.value = char;
     }
-    setRows(updatedRows);
+    updatedGame.rows = [...updatedRows];
+    setGame(updatedGame);
   };
 
   const removeLastChar = () => {
-    const updatedRows = [...rows];
+    const updatedGame = game.clone();
+    const updatedRows = [...updatedGame.rows];
     const currentRow = updatedRows.filter(row => row.status === 'CURRENT')[0];
     const selectedTileIndex = currentRow.tiles.findIndex(
       tile => tile.status === 'SELECTED'
@@ -94,12 +104,16 @@ const Game = () => {
       currentRow.tiles[selectedTileIndex - 1].value = '';
       currentRow.tiles[selectedTileIndex - 1].status = 'SELECTED';
     }
-    setRows(updatedRows);
+    updatedGame.rows = updatedRows;
+    setGame(updatedGame);
   };
 
   const checkAnswer = () => {
+    const updatedGame = game.clone();
+    const updatedRows = [...updatedGame.rows];
+    const answer = updatedGame.answer;
+
     setMessage(null);
-    const updatedRows = [...rows];
     const currentRowIndex = updatedRows.findIndex(
       row => row.status === 'CURRENT'
     );
@@ -108,7 +122,7 @@ const Game = () => {
     const guess = currentRow.tiles
       .map(tile => tile.value)
       .join('')
-      .toUpperCase();
+      .toLowerCase();
     if (guess.length !== currentRow.tiles.length) {
       const message = new MessageModel(
         'Need all 5 letters of the word.',
@@ -148,7 +162,8 @@ const Game = () => {
       nextRow.tiles[0].status = 'SELECTED';
     }
 
-    setRows(updatedRows);
+    updatedGame.rows = updatedRows;
+    setGame(updatedGame);
   };
 
   const handleKey = (key: string) => {
@@ -166,31 +181,6 @@ const Game = () => {
   };
 
   useEffect(() => {
-    setKeyStatusMap(prevStatus => {
-      const updatedKeyStatuses = JSON.parse(JSON.stringify(prevStatus));
-
-      for (const row of rows) {
-        for (const tile of row.tiles) {
-          const currentKeyStatus = updatedKeyStatuses[tile.value];
-          if (tile.status === 'CORRECT') {
-            updatedKeyStatuses[tile.value] = 'CORRECT';
-          } else if (tile.status === 'WARN' && currentKeyStatus !== 'CORRECT') {
-            updatedKeyStatuses[tile.value] = 'WARN';
-          } else if (
-            tile.status === 'INCORRECT' &&
-            currentKeyStatus !== 'CORRECT' &&
-            currentKeyStatus !== 'WARN'
-          ) {
-            updatedKeyStatuses[tile.value] = 'INCORRECT';
-          }
-        }
-      }
-
-      return updatedKeyStatuses;
-    });
-  }, [rows]);
-
-  useEffect(() => {
     const keydownListener = (event: KeyboardEvent) => {
       handleKey(event.key);
     };
@@ -201,13 +191,40 @@ const Game = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setKeyStatus(prevStatus => {
+      const keyStatus = { ...prevStatus };
+
+      for (const row of game.rows) {
+        if (row.status === 'UNSOLVED') {
+          continue;
+        }
+        for (const tile of row.tiles) {
+          const currentKeyStatus = keyStatus[tile.value];
+          if (tile.status === 'CORRECT') {
+            keyStatus[tile.value] = 'CORRECT';
+          } else if (tile.status === 'WARN' && currentKeyStatus !== 'CORRECT') {
+            keyStatus[tile.value] = 'WARN';
+          } else if (
+            tile.status === 'INCORRECT' &&
+            currentKeyStatus !== 'CORRECT' &&
+            currentKeyStatus !== 'WARN'
+          ) {
+            keyStatus[tile.value] = 'INCORRECT';
+          }
+        }
+      }
+      return keyStatus;
+    });
+  }, [game]);
+
   return (
     <div className={classes.game}>
       <div className={classes['board-container']}>
-        <Board rows={rows} />
+        <Board rows={game.rows} />
         {message && <Message message={message} />}
       </div>
-      <Keyboard keyStatus={keyStatusMap} onKey={handleKey} />
+      <Keyboard keyStatus={keyStatus} onKey={handleKey} />
     </div>
   );
 };
