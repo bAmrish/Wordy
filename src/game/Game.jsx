@@ -5,6 +5,7 @@ import dictionary from "../assets/words/word-list-comprehensive.json";
 import Board from "./board/Board";
 import Message from "./message/Message";
 import Keyboard from "./keyboard/Keyboard";
+import HelperService from "./service/helper";
 
 const initRows = () => {
   const initTiles = () => {
@@ -38,7 +39,9 @@ const getNewWord = () => {
   console.log({ totalWords, random, word });
   return word.word;
 };
+
 const word = getNewWord().toUpperCase();
+// const word = "ELITE";
 
 const Game = () => {
   const [message, setMessage] = useState(null);
@@ -95,18 +98,6 @@ const Game = () => {
     setRows(updatedRows);
   };
 
-  const getTileStatus = (index, guess, answer) => {
-    if (guess[index] === answer[index]) {
-      return "CORRECT";
-    }
-
-    if (answer.indexOf(guess[index]) > -1) {
-      return "WARN";
-    }
-
-    return "INCORRECT";
-  };
-
   const checkAnswer = () => {
     setMessage(null);
     const updatedRows = [...rows];
@@ -133,7 +124,7 @@ const Game = () => {
 
     for (let i = 0; i < currentRow.tiles.length; i++) {
       const tile = currentRow.tiles[i];
-      tile.status = getTileStatus(i, guess, answer);
+      tile.status = HelperService.getTileStatus(i, guess, answer);
     }
 
     if (guess === answer) {
@@ -210,8 +201,8 @@ const Game = () => {
   return (
     <div className={classes.game}>
       <div className={classes["board-container"]}>
-        {message && <Message message={message} />}
         <Board rows={rows} />
+        {message && <Message message={message} />}
       </div>
       <Keyboard keyStatus={keyStatusMap} onKey={handleKey} />
     </div>
