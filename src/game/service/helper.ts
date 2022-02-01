@@ -1,34 +1,46 @@
-import wordsList from "../../assets/words/word-list.json";
+import importedWordList from '../../assets/words/word-list.json';
+import { StatusType } from '../models/tile.model';
 
-const words = wordsList.filter((w) => w.frequency > 150000);
+type WordType = { word: string; frequency: number };
+
+// @ts-ignore
+const wordsList = importedWordList as WordType[];
+
+const words: WordType[] = wordsList.filter(
+  (w: WordType) => w.frequency > 150000
+);
 
 class HelperService {
-  static getNewWord() {
+  static getNewWord(): string {
     const totalWords = words.length;
     const random = Math.floor(Math.random() * totalWords);
     const word = words[random];
     return word.word;
   }
 
-  static getTileStatus(index, guess, answer) {
-    const guessLetters = guess.split("");
-    const answerLetters = answer.split("");
+  static getTileStatus(
+    index: number,
+    guess: string,
+    answer: string
+  ): StatusType {
+    const guessLetters = guess.split('');
+    const answerLetters = answer.split('');
     const value = guessLetters[index];
 
     //if the tile letter is in the right position
     // we mark the tile status as correct.
     if (answerLetters[index] === value) {
-      return "CORRECT";
+      return 'CORRECT';
     }
 
     //if the tile letter does not exist in answer
     // we mark the tile status as incorrect.
     if (answerLetters.indexOf(value) === -1) {
-      return "INCORRECT";
+      return 'INCORRECT';
     }
 
-    const letterMatchCountInGuess = guessLetters.filter((c) => c === value);
-    const letterMatchCountInAnswer = answerLetters.filter((c) => c === value);
+    const letterMatchCountInGuess = guessLetters.filter(c => c === value);
+    const letterMatchCountInAnswer = answerLetters.filter(c => c === value);
 
     // If you are checking for a letter in guess and
     // if that letter occurs less or equal number of times
@@ -39,7 +51,7 @@ class HelperService {
     // If you are checking for letter A then you can safely
     // mark the position as 'WARN'
     if (letterMatchCountInGuess <= letterMatchCountInAnswer) {
-      return "WARN";
+      return 'WARN';
     }
 
     // ON RARE BUT POSSIBLE OCCASION
@@ -60,11 +72,11 @@ class HelperService {
     // and the 2nd index (E at index 2) has be marked as INCORRECT
     const guessIndex = guessLetters
       .map((l, idx) => (l === value ? idx : -1))
-      .filter((n) => n > -1);
+      .filter(n => n > -1);
     const answerIndex = answerLetters
       .map((l, idx) => (l === value ? idx : -1))
-      .filter((n) => n > -1);
-    const successIndex = [];
+      .filter(n => n > -1);
+    const successIndex: number[] = [];
 
     for (let j = 0; j < guessIndex.length; j++) {
       const idx = guessIndex[j];
@@ -75,7 +87,7 @@ class HelperService {
 
     // At this stage we have all the indexes that do not match
     const noMatchIndex = guessIndex.filter(
-      (id) => successIndex.indexOf(id) === -1
+      id => successIndex.indexOf(id) === -1
     );
 
     // Now at this stage noMatchIndex contains indexes of the
@@ -93,10 +105,10 @@ class HelperService {
     // more times than in the answer)
     const threshold = answerIndex.length - successIndex.length - 1;
     if (noMatchIndex.indexOf(index) <= threshold) {
-      return "WARN";
+      return 'WARN';
     }
 
-    return "INCORRECT";
+    return 'INCORRECT';
   }
 }
 
