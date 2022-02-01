@@ -1,5 +1,5 @@
 import classes from './Game.module.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import dictionary from '../assets/words/word-list-comprehensive.json';
 import Board from './board/Board';
@@ -52,34 +52,37 @@ const Game = () => {
   const [game, setGame] = useState<GameModel>(initialGame);
   const [keyStatus, setKeyStatus] = useState<{ [key: string]: StatusType }>({});
 
-  const addChar = (key: string) => {
-    const updatedGame = game.clone();
-    const char = key.toLowerCase();
-    const updatedRows = [...updatedGame.rows];
-    const currentRow = updatedRows.filter(row => row.status === 'CURRENT')[0];
+  const addChar = useCallback(
+    (key: string) => {
+      const updatedGame = game.clone();
+      const char = key.toLowerCase();
+      const updatedRows = [...updatedGame.rows];
+      const currentRow = updatedRows.filter(row => row.status === 'CURRENT')[0];
 
-    const selectedTileIndex = currentRow.tiles.findIndex(
-      tile => tile.status === 'SELECTED'
-    );
+      const selectedTileIndex = currentRow.tiles.findIndex(
+        tile => tile.status === 'SELECTED'
+      );
 
-    const selectedTile = currentRow.tiles[selectedTileIndex];
+      const selectedTile = currentRow.tiles[selectedTileIndex];
 
-    if (selectedTileIndex < currentRow.tiles.length - 1) {
-      selectedTile.status = 'NEW';
-      currentRow.tiles[selectedTileIndex + 1].status = 'SELECTED';
-      selectedTile.value = char;
-    }
-    if (
-      selectedTileIndex === currentRow.tiles.length - 1 &&
-      selectedTile.value === ''
-    ) {
-      selectedTile.value = char;
-    }
-    updatedGame.rows = [...updatedRows];
-    setGame(updatedGame);
-  };
+      if (selectedTileIndex < currentRow.tiles.length - 1) {
+        selectedTile.status = 'NEW';
+        currentRow.tiles[selectedTileIndex + 1].status = 'SELECTED';
+        selectedTile.value = char;
+      }
+      if (
+        selectedTileIndex === currentRow.tiles.length - 1 &&
+        selectedTile.value === ''
+      ) {
+        selectedTile.value = char;
+      }
+      updatedGame.rows = [...updatedRows];
+      setGame(updatedGame);
+    },
+    [game]
+  );
 
-  const removeLastChar = () => {
+  const removeLastChar = useCallback(() => {
     const updatedGame = game.clone();
     const updatedRows = [...updatedGame.rows];
     const currentRow = updatedRows.filter(row => row.status === 'CURRENT')[0];
@@ -106,13 +109,13 @@ const Game = () => {
     }
     updatedGame.rows = updatedRows;
     setGame(updatedGame);
-  };
+  }, [game]);
 
-  const checkAnswer = () => {
+  const checkAnswer = useCallback(() => {
     const updatedGame = game.clone();
+
     const updatedRows = [...updatedGame.rows];
     const answer = updatedGame.answer;
-
     setMessage(null);
     const currentRowIndex = updatedRows.findIndex(
       row => row.status === 'CURRENT'
@@ -129,13 +132,11 @@ const Game = () => {
         'warn'
       );
       setMessage(message);
-      console.warn('incomplete answer', guess);
       return;
     }
 
     if (dictionary.indexOf(guess.toLowerCase()) === -1) {
       setMessage({ type: 'warn', text: `${guess} is not in dictionary.` });
-      console.warn(`${guess} is not in dictionary!`);
       return;
     }
 
@@ -145,16 +146,25 @@ const Game = () => {
     }
 
     if (guess === answer) {
-      setMessage({ type: 'success', text: 'You Guessed it!' });
+      setMessage({
+        type: 'success',
+        text: `You Guessed it! The answer was "${answer.toUpperCase()}". Press enter to start a new game.`,
+      });
       currentRow.status = 'EVALUATED';
+
       for (let i = currentRowIndex + 1; i < updatedRows.length; i++) {
         const row = updatedRows[i];
         row.status = 'DISABLED';
         row.tiles.forEach(tile => (tile.status = 'DISABLED'));
       }
+
+      updatedGame.status = 'WON';
     } else if (currentRowIndex === updatedRows.length - 1) {
-      setMessage({ type: 'error', text: `The word was ${answer}` });
-      console.warn(`😞 game lost! the word was ${answer}`);
+      setMessage({
+        type: 'error',
+        text: `The word was "${answer.toUpperCase()}". Press enter to start a new game.`,
+      });
+      updatedGame.status = 'LOST';
     } else {
       currentRow.status = 'EVALUATED';
       const nextRow = updatedRows[currentRowIndex + 1];
@@ -163,22 +173,35 @@ const Game = () => {
     }
 
     updatedGame.rows = updatedRows;
+    updatedGame.seed = game.seed + 1;
     setGame(updatedGame);
-  };
+  }, [game]);
 
-  const handleKey = (key: string) => {
-    const isAlpha = key.length === 1 && /[a-zA-Z]/i.test(key);
-    const isBackspace = key === 'Backspace';
-    const isEnter = key === 'Enter';
+  const handleKey = useCallback(
+    (key: string) => {
+      const isAlpha = key.length === 1 && /[a-zA-Z]/i.test(key);
+      const isBackspace = key === 'Backspace';
+      const isEnter = key === 'Enter';
 
-    if (isAlpha) {
-      addChar(key);
-    } else if (isBackspace) {
-      removeLastChar();
-    } else if (isEnter) {
-      checkAnswer();
-    }
-  };
+      if (game.status === 'WON' || game.status === 'LOST') {
+        if (isEnter) {
+          setGame(createGame());
+          setMessage(null);
+          setKeyStatus({});
+        }
+        return;
+      }
+
+      if (isAlpha) {
+        addChar(key);
+      } else if (isBackspace) {
+        removeLastChar();
+      } else if (isEnter) {
+        checkAnswer();
+      }
+    },
+    [addChar, checkAnswer, game.status, removeLastChar]
+  );
 
   useEffect(() => {
     const keydownListener = (event: KeyboardEvent) => {
@@ -188,8 +211,7 @@ const Game = () => {
     return () => {
       document.removeEventListener('keydown', keydownListener);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleKey]);
 
   useEffect(() => {
     setKeyStatus(prevStatus => {
