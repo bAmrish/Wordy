@@ -1,4 +1,17 @@
+import wordsList from "../../assets/words/word-list.json";
+
+const words = wordsList.filter((w) => w.frequency > 150000);
+console.log(words);
+
 class HelperService {
+  static getNewWord() {
+    const totalWords = words.length;
+    const random = Math.floor(Math.random() * totalWords);
+    const word = words[random];
+    console.log({ totalWords, random, word });
+    return word.word;
+  }
+
   static getTileStatus(index, guess, answer) {
     const guessLetters = guess.split("");
     const answerLetters = answer.split("");

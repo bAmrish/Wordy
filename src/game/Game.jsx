@@ -1,6 +1,6 @@
 import classes from "./Game.module.css";
 import { useEffect, useState } from "react";
-import words from "../assets/words/word-list.json";
+
 import dictionary from "../assets/words/word-list-comprehensive.json";
 import Board from "./board/Board";
 import Message from "./message/Message";
@@ -32,16 +32,7 @@ const initRows = () => {
   return rows;
 };
 
-const getNewWord = () => {
-  const totalWords = words.length;
-  const random = Math.floor(Math.random() * totalWords);
-  const word = words[random];
-  console.log({ totalWords, random, word });
-  return word.word;
-};
-
-const word = getNewWord().toUpperCase();
-// const word = "ELITE";
+const word = HelperService.getNewWord().toUpperCase();
 
 const Game = () => {
   const [message, setMessage] = useState(null);

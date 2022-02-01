@@ -32,7 +32,7 @@ const middleRow = {
 const bottomRow = {
   name: "bottom-row",
   keys: [
-    { value: "Enter", text: "\u21B3", className: "enter" },
+    { value: "Backspace", text: "\u21E6", className: "backspace" },
     { value: "z", text: "z" },
     { value: "x", text: "x" },
     { value: "c", text: "c" },
@@ -40,7 +40,7 @@ const bottomRow = {
     { value: "b", text: "b" },
     { value: "n", text: "n" },
     { value: "m", text: "m" },
-    { value: "Backspace", text: "\u21E6", className: "backspace" },
+    { value: "Enter", text: "ENTER", className: "enter" },
   ],
 };
 
