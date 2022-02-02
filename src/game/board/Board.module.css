@@ -7,6 +7,13 @@
     margin: 0 auto;
 }
 
+@media (min-height: 400px) and (max-height: 840px)  {
+    .board {
+        width: 300px;
+        height: 350px;
+    }
+}
+
 @media (max-width: 360px)  {
     .board {
         width: 250px;
