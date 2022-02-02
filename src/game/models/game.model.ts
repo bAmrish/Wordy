@@ -29,9 +29,7 @@ class GameModel {
   clone(): GameModel {
     const clone = new GameModel(this.id);
     clone.rows = [...this.rows];
-    // noinspection TypeScriptValidateTypes
-    // @ts-ignore
-    clone.status = this.status.toString();
+    clone.status = this.status;
     clone.answer = this.answer;
     clone.seed = this.seed;
     clone.createdOn = new Date(this.createdOn.toString());

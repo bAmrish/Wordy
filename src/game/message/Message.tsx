@@ -1,11 +1,18 @@
 import classes from './Message.module.css';
-import { FC } from 'react';
-import MessageModel from '../models/message.model';
 
-const Message: FC<{ message: MessageModel }> = props => {
-  const message = props.message;
-  const messageClass = message && `${classes.message} ${classes[message.type]}`;
-  return <div className={messageClass}>{message.text}</div>;
+import { useAppSelector } from '../store/store.hooks';
+
+const Message = () => {
+  const message = useAppSelector(state => state.ui.notification);
+  let content;
+  if (message) {
+    const messageClass =
+      message && `${classes.message} ${classes[message.type]}`;
+    content = <div className={messageClass}>{message.text}</div>;
+  } else {
+    content = <></>;
+  }
+  return content;
 };
 
 export default Message;

@@ -1,5 +1,7 @@
 import importedWordList from '../../assets/words/word-list.json';
-import { StatusType } from '../models/tile.model';
+import TileModel, { StatusType } from '../models/tile.model';
+import RowModel from '../models/row.model';
+import GameModel from '../models/game.model';
 
 type WordType = { word: string; frequency: number };
 
@@ -20,6 +22,15 @@ class HelperService {
     const random = Math.floor(Math.random() * totalWords);
     const word = words[random];
     return [random, word.word.toLowerCase()];
+  }
+
+  static createGame(): GameModel {
+    const id = HelperService.getNewId();
+    const rows = this.initRows();
+    const [seed, answer] = HelperService.getNewWord();
+    const game = new GameModel(id, rows, 'PLAYING', answer, seed);
+    console.log(game);
+    return game;
   }
 
   static getTileStatus(
@@ -113,6 +124,31 @@ class HelperService {
     }
 
     return 'INCORRECT';
+  }
+
+  private static initTiles(): TileModel[] {
+    const tiles: TileModel[] = [];
+    for (let i = 0; i < 5; i++) {
+      tiles.push(new TileModel(`t${i}`, '', 'NEW'));
+    }
+    return tiles;
+  }
+
+  private static initRows(): RowModel[] {
+    const rows: RowModel[] = [];
+
+    for (let i = 0; i < 6; i++) {
+      rows.push({
+        id: `r${i}`,
+        tiles: HelperService.initTiles(),
+        status: 'UNSOLVED',
+      });
+    }
+
+    rows[0].status = 'CURRENT';
+    rows[0].tiles[0].status = 'SELECTED';
+
+    return rows;
   }
 
   private static UUIDv4(): string {

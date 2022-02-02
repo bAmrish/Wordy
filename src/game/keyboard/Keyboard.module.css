@@ -57,6 +57,16 @@
     font-weight: bold;
 }
 
+.key.enter {
+    font-size: 1rem;
+}
+
+@media (max-width: 360px) {
+    .key.enter {
+        font-size: 0.8rem;
+    }
+}
+
 .key.success {
     background-color: #75f102;
 }
