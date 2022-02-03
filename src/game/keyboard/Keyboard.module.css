@@ -1,3 +1,5 @@
+@import "../../variables.css";
+
 .keyboard {
     display: flex;
     flex-direction: column;
@@ -33,8 +35,8 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    background-color: #2d2d25;
-    color: white;
+    background-color: var(--key-background);
+    color: var(--key-text);
     padding: 10px 10px;
     border-radius: 5px;
     border: 0;
@@ -49,8 +51,8 @@
 }
 
 .key.enter, .key.backspace {
-    background-color: #e5e3e3;
-    color: #23231c;
+    background-color: var(--key-text);
+    color: var(--key-background);
     font-size: 1.3rem;
     border: 1px solid #5d5d59;
     flex-grow: 2;
@@ -68,21 +70,14 @@
 }
 
 .key.success {
-    background-color: #75f102;
-}
-
-.key.selected {
-    border-color: #2d2d25;
+    background-color: var(--success);
 }
 
 .key.warn {
-    background-color: #ebba3d;
+    background-color: var(--warn);
 }
 
 .key.incorrect {
-    background-color: #cbd0d0;
-}
-
-.key.disabled {
-    background-color: #e9e9e9;
+    background-color: var(--disabled-background);;
+    color: var(--disabled-text);;
 }
