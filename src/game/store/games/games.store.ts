@@ -18,7 +18,6 @@ const gamesStore = createSlice({
       state.currentGame = game;
       const index = state.games.findIndex(g => g.id === game.id);
       if (index > -1) {
-        const game = state.games[index];
         state.games.splice(index, 1, game);
       } else {
         state.games.push(game);
