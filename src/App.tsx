@@ -5,8 +5,8 @@ import Header from './header/Header';
 function App() {
   return (
     <div className={classes.app}>
-      <Header />
       <div className={classes['main-container']}>
+        <Header />
         <Game />
       </div>
     </div>

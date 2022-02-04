@@ -5,7 +5,9 @@
     justify-content: space-between;
     align-items: center;
     background-color: var(--primary-background);
-    width: 100vw;
+    width: 100%;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
     margin: 0 auto 20px;
 }
 
