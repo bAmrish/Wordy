@@ -3,6 +3,10 @@
 .idea/
 *.iml
 
+#Firebase files
+.firebase/
+*.cache
+
 # dependencies
 /node_modules
 /.pnp
