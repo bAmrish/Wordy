@@ -1,5 +1,5 @@
 import classes from './Game.module.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import Board from './board/Board';
 import Message from './message/Message';
 import Keyboard from './keyboard/Keyboard';
@@ -9,8 +9,10 @@ import { StatusType } from './models/tile.model';
 
 const Game = () => {
   const game = useAppSelector(state => state.games.currentGame);
-  const [keyStatus, setKeyStatus] = useState<{ [key: string]: StatusType }>({});
   const dispatch = useAppDispatch();
+  const keyStatus: { [key: string]: StatusType } = {};
+
+  // console.log(`[Rendering Game Component]`, game);
 
   const addChar = useCallback(
     (key: string) => {
@@ -35,7 +37,6 @@ const Game = () => {
 
       if (game?.status === 'WON' || game?.status === 'LOST') {
         if (isEnter) {
-          setKeyStatus({});
           dispatch(gamesActions.newGame());
         }
         return;
@@ -66,35 +67,28 @@ const Game = () => {
     };
   }, [handleKey]);
 
-  useEffect(() => {
-    setKeyStatus(prevStatus => {
-      if (!game) {
-        return prevStatus;
+  if (game) {
+    for (const row of game.rows) {
+      if (row.status === 'UNSOLVED') {
+        continue;
       }
-      const keyStatus = { ...prevStatus };
+      for (const tile of row.tiles) {
+        const currentKeyStatus = keyStatus[tile.value];
+        if (tile.status === 'CORRECT') {
+          keyStatus[tile.value] = 'CORRECT';
+        } else if (tile.status === 'WARN' && currentKeyStatus !== 'CORRECT') {
+          keyStatus[tile.value] = 'WARN';
+        } else if (
+          tile.status === 'INCORRECT' &&
+          currentKeyStatus !== 'CORRECT' &&
+          currentKeyStatus !== 'WARN'
+        ) {
+          keyStatus[tile.value] = 'INCORRECT';
+        }
+      }
+    }
+  }
 
-      for (const row of game.rows) {
-        if (row.status === 'UNSOLVED') {
-          continue;
-        }
-        for (const tile of row.tiles) {
-          const currentKeyStatus = keyStatus[tile.value];
-          if (tile.status === 'CORRECT') {
-            keyStatus[tile.value] = 'CORRECT';
-          } else if (tile.status === 'WARN' && currentKeyStatus !== 'CORRECT') {
-            keyStatus[tile.value] = 'WARN';
-          } else if (
-            tile.status === 'INCORRECT' &&
-            currentKeyStatus !== 'CORRECT' &&
-            currentKeyStatus !== 'WARN'
-          ) {
-            keyStatus[tile.value] = 'INCORRECT';
-          }
-        }
-      }
-      return keyStatus;
-    });
-  }, [game]);
   let content;
 
   if (game) {
@@ -111,7 +105,7 @@ const Game = () => {
     content = <div>Loading game. Please Wait...</div>;
   }
 
-  return <div className={classes.game}> {content}</div>;
+  return <div className={classes.game}> {content} </div>;
 };
 
 export default Game;

@@ -1,5 +1,5 @@
 import classes from './Keyboard.module.css';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { StatusType } from '../models/tile.model';
 
 class KeyModel {
@@ -69,7 +69,9 @@ const bottomRow = new KeyboardRowModel('bottom-row', [
 const Keyboard: FC<{
   onKey: (key: string) => void;
   keyStatus: { [key: string]: StatusType };
-}> = props => {
+}> = memo(props => {
+  // console.log(`[Rendering Keyboard Component]`, props.keyStatus);
+
   const keyHandler = (key: string) => {
     props.onKey(key);
   };
@@ -83,13 +85,14 @@ const Keyboard: FC<{
       <Row row={bottomRow} onKey={keyHandler} />
     </div>
   );
-};
+});
 
 const Row: FC<{
   row: KeyboardRowModel;
   onKey: (key: string) => void;
 }> = props => {
   const row = props.row;
+  // console.log(`[Rendering Keyboard Row Component]`, props.row);
 
   const keyHandler = (key: string) => {
     props.onKey(key);
@@ -104,6 +107,8 @@ const Row: FC<{
 
 const Key: FC<{ theKey: KeyModel; onKey: (key: string) => void }> = props => {
   const { className, text, value, status } = props.theKey;
+
+  // console.log(`[Rendering Key Component]`, props.theKey);
 
   let keyClasses = classes.key;
 
