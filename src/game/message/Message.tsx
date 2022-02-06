@@ -1,8 +1,9 @@
 import classes from './Message.module.css';
 
 import { useAppSelector } from '../store/store.hooks';
+import { FC, memo } from 'react';
 
-const Message = () => {
+const Message: FC = memo(() => {
   const message = useAppSelector(state => state.ui.notification);
   // console.log(`[Rendering Message Component]`, message);
 
@@ -15,6 +16,6 @@ const Message = () => {
     content = <></>;
   }
   return content;
-};
+});
 
 export default Message;
