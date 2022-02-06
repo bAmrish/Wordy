@@ -5,7 +5,6 @@ import { FC, memo } from 'react';
 
 const Message: FC = memo(() => {
   const message = useAppSelector(state => state.ui.notification);
-  // console.log(`[Rendering Message Component]`, message);
 
   let content;
   if (message) {

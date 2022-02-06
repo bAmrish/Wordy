@@ -14,8 +14,6 @@ const gamesStore = createSlice({
   initialState,
   reducers: {
     updateCurrentGame: (state: AppState, action: PayloadAction<GameModel>) => {
-      // console.log(`<<updateCurrentGame store action triggered>>`);
-
       const game = action.payload;
       state.currentGame = game;
       const index = state.games.findIndex(g => g.id === game.id);
@@ -27,7 +25,6 @@ const gamesStore = createSlice({
     },
 
     newGame: (state: AppState, action: PayloadAction<GameModel>) => {
-      // console.log(`<<newGame store action triggered>>`);
       const game = action.payload;
       state.currentGame = game;
       state.games.push(game);

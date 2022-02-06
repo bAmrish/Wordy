@@ -12,8 +12,6 @@ const Game = () => {
   const dispatch = useAppDispatch();
   const keyStatus: { [key: string]: StatusType } = {};
 
-  // console.log(`[Rendering Game Component]`, game);
-
   const addChar = useCallback(
     (key: string) => {
       dispatch(gamesActions.addChar(key));

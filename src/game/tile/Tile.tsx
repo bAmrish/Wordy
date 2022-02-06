@@ -4,7 +4,6 @@ import { FC } from 'react';
 import TileModel from '../models/tile.model';
 
 const Tile: FC<{ tile: TileModel }> = props => {
-  // console.log(`[Rendering Tile Component]`, props.tile);
   const tile = props.tile;
   let className = classes.tile;
   switch (tile.status) {

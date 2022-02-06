@@ -7,7 +7,7 @@ import uiStore from '../ui/ui.store';
 const gamesActions = {
   addChar: (key: string) => {
     return (dispatch: AppDispatch, getState: () => RootState) => {
-      // console.log(`{{addChar action triggered}}`);
+      dispatch(uiStore.actions.clearNotification());
 
       const currentGame = getState().games.currentGame;
       const game = currentGame?.clone();
@@ -42,7 +42,8 @@ const gamesActions = {
 
   removeLastChar: () => {
     return (dispatch: AppDispatch, getState: () => RootState) => {
-      // console.log(`{{removeLastChar action triggered}}`);
+      dispatch(uiStore.actions.clearNotification());
+
       const currentGame = getState().games.currentGame;
       const game = currentGame?.clone();
       if (!game) {
@@ -78,8 +79,6 @@ const gamesActions = {
 
   checkAnswer: () => {
     return (dispatch: AppDispatch, getState: () => RootState) => {
-      // console.log(`{{checkAnswer action triggered}}`);
-
       dispatch(uiStore.actions.clearNotification());
       const currentGame = getState().games.currentGame;
       const game = currentGame?.clone();
@@ -149,8 +148,6 @@ const gamesActions = {
 
   newGame: () => {
     return (dispatch: AppDispatch) => {
-      // console.log(`{{newGame action triggered}}`);
-
       const game = HelperService.createGame();
       dispatch(gamesStore.actions.newGame(game));
       dispatch(uiStore.actions.clearNotification());

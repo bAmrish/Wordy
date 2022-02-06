@@ -9,8 +9,6 @@ const HeaderStats = () => {
     state => state.games.games.filter(game => game.status === 'WON').length
   );
 
-  // console.log(`[Rendering HeaderStats Component]`);
-
   return (
     <div className={classes.stats}>
       <div>

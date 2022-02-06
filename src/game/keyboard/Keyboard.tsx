@@ -70,8 +70,6 @@ const Keyboard: FC<{
   onKey: (key: string) => void;
   keyStatus: { [key: string]: StatusType };
 }> = memo(props => {
-  // console.log(`[Rendering Keyboard Component]`, props.keyStatus);
-
   const keyHandler = (key: string) => {
     props.onKey(key);
   };
@@ -92,7 +90,6 @@ const Row: FC<{
   onKey: (key: string) => void;
 }> = props => {
   const row = props.row;
-  // console.log(`[Rendering Keyboard Row Component]`, props.row);
 
   const keyHandler = (key: string) => {
     props.onKey(key);
@@ -107,8 +104,6 @@ const Row: FC<{
 
 const Key: FC<{ theKey: KeyModel; onKey: (key: string) => void }> = props => {
   const { className, text, value, status } = props.theKey;
-
-  // console.log(`[Rendering Key Component]`, props.theKey);
 
   let keyClasses = classes.key;
 
