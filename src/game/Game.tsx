@@ -52,8 +52,13 @@ const Game = () => {
   );
 
   useEffect(() => {
-    dispatch(gamesActions.newGame());
-  }, [dispatch]);
+    //Since we are loading the game from localstorage first
+    // it might be possible there is an already running game
+    // in that case we don't want to create a new game.
+    if (!game) {
+      dispatch(gamesActions.newGame());
+    }
+  }, [dispatch, game]);
 
   useEffect(() => {
     const keydownListener = (event: KeyboardEvent) => {

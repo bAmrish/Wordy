@@ -28,7 +28,14 @@ class HelperService {
     const id = HelperService.getNewId();
     const rows = this.initRows();
     const [seed, answer] = HelperService.getNewWord();
-    const game = new GameModel(id, rows, 'PLAYING', answer, seed);
+    const game: GameModel = {
+      id,
+      rows,
+      answer,
+      seed,
+      status: 'PLAYING',
+      createdOn: new Date(),
+    };
     console.log(game);
     return game;
   }
@@ -126,10 +133,27 @@ class HelperService {
     return 'INCORRECT';
   }
 
+  static cloneGame(game: GameModel): GameModel {
+    const clone: GameModel = { ...game };
+    clone.rows = game.rows.map(rowObject => {
+      const row = { ...rowObject };
+      row.tiles = row.tiles.map(tileObject => {
+        return { ...tileObject };
+      });
+      return row;
+    });
+    clone.createdOn = new Date(game.createdOn.toString());
+    return clone;
+  }
+
   private static initTiles(): TileModel[] {
     const tiles: TileModel[] = [];
     for (let i = 0; i < 5; i++) {
-      tiles.push(new TileModel(`t${i}`, '', 'NEW'));
+      tiles.push({
+        id: `t${i}`,
+        value: '',
+        status: 'NEW',
+      });
     }
     return tiles;
   }

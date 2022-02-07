@@ -10,10 +10,12 @@ const gamesActions = {
       dispatch(uiStore.actions.clearNotification());
 
       const currentGame = getState().games.currentGame;
-      const game = currentGame?.clone();
-      if (!game) {
+      if (!currentGame) {
         return;
       }
+
+      const game = HelperService.cloneGame(currentGame);
+
       const char = key.toLowerCase();
       const rows = game.rows;
       const currentRow = rows.filter(row => row.status === 'CURRENT')[0];
@@ -45,10 +47,10 @@ const gamesActions = {
       dispatch(uiStore.actions.clearNotification());
 
       const currentGame = getState().games.currentGame;
-      const game = currentGame?.clone();
-      if (!game) {
+      if (!currentGame) {
         return;
       }
+      const game = HelperService.cloneGame(currentGame);
       const rows = game.rows;
       const currentRow = rows.filter(row => row.status === 'CURRENT')[0];
       const selectedTileIndex = currentRow.tiles.findIndex(
@@ -81,10 +83,10 @@ const gamesActions = {
     return (dispatch: AppDispatch, getState: () => RootState) => {
       dispatch(uiStore.actions.clearNotification());
       const currentGame = getState().games.currentGame;
-      const game = currentGame?.clone();
-      if (!game) {
+      if (!currentGame) {
         return;
       }
+      const game = HelperService.cloneGame(currentGame);
       const rows = game.rows;
       const answer = game.answer;
       const currentRowIndex = rows.findIndex(row => row.status === 'CURRENT');
@@ -141,7 +143,6 @@ const gamesActions = {
       }
 
       game.rows = rows;
-      game.seed = game.seed + 1;
       dispatch(gamesStore.actions.updateCurrentGame(game));
     };
   },

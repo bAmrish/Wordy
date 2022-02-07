@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import MessageModel from '../../models/message.model';
 
-interface UIState {
+export interface UIState {
   notification: MessageModel | null;
 }
 

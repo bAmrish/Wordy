@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import GameModel from '../../models/game.model';
 
-interface AppState {
+export interface AppState {
   currentGame: GameModel | null;
   games: GameModel[];
 }
