@@ -4,7 +4,9 @@
     --secondary-background: #bfc2a2;
     --secondary-text: #302718;
     --warn: #f59f2a;
+    --warn-semi-transparent: #f59f2a66;
     --success: #75f102;
+    --success-semi-transparent: #75f10266;
     --disabled-background: #8D8D8DCC;
     --disabled-text: #d2d1d1;
 
