@@ -15,7 +15,7 @@
 }
 
 .tile.selected {
-    border-color: var(--primary-background);
+    border: 3px solid black;
 }
 
 .tile.incorrect {

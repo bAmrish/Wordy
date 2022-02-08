@@ -1,16 +1,16 @@
-import importedWordList from '../../assets/words/word-list.json';
+import importedWordList from '../../assets/words/five-easy.json';
 import TileModel, { StatusType } from '../models/tile.model';
 import RowModel from '../models/row.model';
 import GameModel from '../models/game.model';
 
-type WordType = { word: string; frequency: number };
+// type WordType = { word: string; count: number };
 
 // @ts-ignore
-const wordsList = importedWordList as WordType[];
+const words = importedWordList as { word: string; count: number }[];
 
-const words: WordType[] = wordsList.filter(
-  (w: WordType) => w.frequency > 150000
-);
+// const words: WordType[] = wordsList.filter(
+//   (w: WordType) => w.count > 150000
+// );
 
 class HelperService {
   static getNewId(): string {
