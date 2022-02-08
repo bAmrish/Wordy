@@ -6,10 +6,12 @@
     justify-content: center;
     gap: 30px;
 }
+
 .title {
     text-align: center;
     color: #6eeee3;
     font-size: 18px;
+    font-family: Raleway, sans-serif;
     -moz-osx-font-smoothing: auto;
     -webkit-font-smoothing: antialiased;
 }

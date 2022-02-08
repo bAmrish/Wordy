@@ -3,7 +3,7 @@ import GameModel from '../../game/models/game.model';
 import { FC } from 'react';
 
 const PlayStatistics: FC<{ games: GameModel[] }> = props => {
-  const games = props.games;
+  const games = props.games.filter(game => game.status !== 'PLAYING');
 
   const played = games.length;
   const won = games.filter(game => game.status === 'WON').length;
@@ -37,7 +37,7 @@ const Card: FC<{
   return (
     <div className={classes['card']}>
       <div className={cardValueClass}>{value}</div>
-      <div className={classes['card-title']}>{title}</div>
+      <div className={classes['card-title']}>{title.toUpperCase()}</div>
     </div>
   );
 };

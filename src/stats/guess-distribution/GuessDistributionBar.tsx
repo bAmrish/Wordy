@@ -83,12 +83,14 @@ const GuessDistributionBar: FC<{ games: GameModel[] }> = props => {
     '6': 0,
   };
 
-  games.forEach(game => {
-    const guessCount = game.rows.filter(
-      row => row.status === 'EVALUATED'
-    ).length;
-    frequency[guessCount] += 1;
-  });
+  games
+    .filter(game => game.status === 'WON')
+    .forEach(game => {
+      const guessCount = game.rows.filter(
+        row => row.status === 'EVALUATED'
+      ).length;
+      frequency[guessCount] += 1;
+    });
 
   const labels: string[] = [];
   const data: number[] = [];
