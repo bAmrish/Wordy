@@ -1,5 +1,6 @@
 import classes from './stats.module.css';
 import { useAppSelector } from '../../game/store/store.hooks';
+import { Link } from 'react-router-dom';
 
 const HeaderStats = () => {
   const totalGames = useAppSelector(
@@ -12,7 +13,9 @@ const HeaderStats = () => {
   return (
     <div className={classes.stats}>
       <div>
-        {gameWon} / {totalGames}
+        <Link to={'/stats'}>
+          {gameWon} / {totalGames}
+        </Link>
       </div>
       <div className={classes.tooltip}>
         <div className={classes['game-stats']}>

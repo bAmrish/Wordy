@@ -12,11 +12,14 @@
 }
 
 .header h1 {
-    /*border: 1px solid blue;*/
     margin: 0;
     padding: 5px 10px;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
 .title {
     font-family: Raleway, Quintessential, sans-serif;
     text-align: center;
