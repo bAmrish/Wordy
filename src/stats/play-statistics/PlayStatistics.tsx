@@ -8,28 +8,36 @@ const PlayStatistics: FC<{ games: GameModel[] }> = props => {
   const played = games.length;
   const won = games.filter(game => game.status === 'WON').length;
   const lost = games.filter(game => game.status === 'LOST').length;
+  const percentWon = played > 0 ? (won * 100) / played : 0;
 
   return (
     <div className={classes['play-statistics']}>
       <div className={classes['title']}>Play Statistics</div>
       <div className={classes['cards']}>
-        <div className={classes['card']}>
-          <div className={`${classes['card-value']}`}>{played}</div>
-          <div className={classes['card-title']}>Played</div>
-        </div>
-        <div className={classes['card']}>
-          <div className={`${classes['card-value']} ${classes['won']}`}>
-            {won}
-          </div>
-          <div className={classes['card-title']}>Won</div>
-        </div>
-        <div className={classes['card']}>
-          <div className={`${classes['card-value']} ${classes['lost']}`}>
-            {lost}
-          </div>
-          <div className={classes['card-title']}>Lost</div>
-        </div>
+        <Card value={played} title="played" />
+        <Card value={won} title="won" className={classes.won} />
+        <Card value={lost} title="lost" className={classes.lost} />
+        <Card value={percentWon.toFixed(2) + ' %'} title="% Won" />
       </div>
+    </div>
+  );
+};
+
+const Card: FC<{
+  title: string;
+  value: number | string;
+  className?: string;
+}> = props => {
+  const { title, value, className } = props;
+  let cardValueClass = classes['card-value'];
+  if (className) {
+    cardValueClass += ' ' + className;
+  }
+
+  return (
+    <div className={classes['card']}>
+      <div className={cardValueClass}>{value}</div>
+      <div className={classes['card-title']}>{title}</div>
     </div>
   );
 };
