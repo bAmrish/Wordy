@@ -1,83 +1,83 @@
-@import "../../variables.css";
+@import '../../variables.css';
 
 .keyboard {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 100%;
-    margin: 0 auto 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  margin: 0 auto 10px;
 }
 
 .row {
-    display: flex;
-    gap: 2px;
-    justify-content: center;
-    position: relative;
-    margin: auto;
-    width: 95%;
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  position: relative;
+  margin: auto;
+  width: 95%;
 }
 
 .top-row {
 }
 
 .middle-row {
-
 }
 
 .bottom-row {
 }
 
-
 .key {
-    width: 10%;
-    font-size: 1.3rem;
-    font-family: monospace;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--key-background);
-    color: var(--key-text);
-    padding: 10px 10px;
-    border-radius: 5px;
-    border: 0;
+  width: 10%;
+  font-size: 1.3rem;
+  font-family: monospace;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--key-background);
+  color: var(--key-text);
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: 0;
 }
 
 .key:hover {
-    background-color: #6f6f5d;
+  background-color: #6f6f5d;
 }
 
 .key:active {
-    background-color: #3c3c33;
+  background-color: #3c3c33;
 }
 
-.key.enter, .key.backspace {
-    background-color: var(--key-text);
-    color: var(--key-background);
-    font-size: 1.3rem;
-    border: 1px solid #5d5d59;
-    flex-grow: 2;
-    font-weight: bold;
+.key.enter,
+.key.backspace {
+  background-color: var(--key-text);
+  color: var(--key-background);
+  font-size: 1.3rem;
+  border: 1px solid #5d5d59;
+  flex-grow: 2;
+  font-weight: bold;
 }
 
 .key.enter {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 @media (max-width: 360px) {
-    .key.enter {
-        font-size: 0.8rem;
-    }
+  .key.enter {
+    font-size: 0.8rem;
+  }
 }
 
 .key.success {
-    background-color: var(--success);
+  background-color: var(--success);
+  color: black;
 }
 
 .key.warn {
-    background-color: var(--warn);
+  background-color: var(--warn);
 }
 
 .key.incorrect {
-    background-color: var(--disabled-background);;
-    color: var(--disabled-text);;
+  background-color: var(--disabled-text);
+  color: white;
 }

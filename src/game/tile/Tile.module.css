@@ -1,32 +1,31 @@
-@import "../../variables.css";
+@import '../../variables.css';
 
 .tile {
-    background-color: #f6fcff;
-    font-size: 1.2rem;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    text-transform: uppercase;
+  background-color: #f6fcff;
+  font-size: 1.2rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  text-transform: uppercase;
 }
 
 .tile.success {
-    background-color: var(--success);
+  background-color: var(--success);
 }
 
 .tile.selected {
-    border: 3px solid black;
+  border: 3px solid black;
 }
 
 .tile.incorrect {
-    background-color: var(--disabled-text);
+  background-color: var(--disabled-text);
 }
 
 .tile.warn {
-    background-color: var(--warn);
+  background-color: var(--warn);
 }
 
 .tile.disabled {
-    background-color: var(--disabled-background);
+  background-color: var(--disabled-background);
 }
-

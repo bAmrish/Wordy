@@ -1,67 +1,66 @@
-
 .play-statistics {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
 }
 
 .title {
-    text-align: center;
-    color: #6eeee3;
-    font-size: 18px;
-    font-family: Raleway, sans-serif;
-    -moz-osx-font-smoothing: auto;
-    -webkit-font-smoothing: antialiased;
+  text-align: center;
+  color: #244b02;
+  font-size: 18px;
+  font-family: Raleway, sans-serif;
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: antialiased;
 }
 .cards {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  gap: 10px;
 }
 
 .card-title {
-    text-align: center;
-    color: #6eeee3;
+  text-align: center;
+  color: #244b02;
 }
 
 .card-value {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    white-space: nowrap;
-    border: 2px solid #6eeee3;
-    background-color: #6eeee333;
-    backdrop-filter: contrast(0);
-    padding: 10px;
-    aspect-ratio: 1;
-    border-radius: 10px;
-    font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  white-space: nowrap;
+  border: 2px solid #244b02;
+  background-color: #244b0233;
+  backdrop-filter: contrast(0);
+  padding: 10px;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 @media (max-width: 250px) {
-    .card-value {
-        width: 40px;
-    }
+  .card-value {
+    width: 40px;
+  }
 }
 
 .card-value.won {
-    background-color: var(--success-semi-transparent);
-    border: 2px solid var(--success);
+  background-color: var(--success-semi-transparent);
+  border: 2px solid var(--success);
 }
 
 .card-value.lost {
-    background-color: var(--warn-semi-transparent);
-    border: 2px solid var(--warn);
+  background-color: var(--warn-semi-transparent);
+  border: 2px solid var(--warn);
 }

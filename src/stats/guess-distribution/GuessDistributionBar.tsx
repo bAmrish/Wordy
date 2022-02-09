@@ -25,7 +25,7 @@ Chart.register(
 );
 
 const GuessDistributionBar: FC<{ games: GameModel[] }> = props => {
-  const color = '#6eeee3';
+  const color = '#244b02';
   const colorAlpha = `${color}66`;
 
   const options: ChartOptions = {
