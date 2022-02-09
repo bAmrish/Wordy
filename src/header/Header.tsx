@@ -1,5 +1,5 @@
 import classes from './Header.module.css';
-import HeaderStats from '../assets/stats/HeaderStats';
+import HeaderStats from '../stats/stats-header/HeaderStats';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
