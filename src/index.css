@@ -1,4 +1,4 @@
-@import "variables.css";
+@import 'variables.css';
 
 @font-face {
   font-family: 'Raleway';
@@ -6,7 +6,7 @@
   font-weight: 400;
   src: url('./assets/fonts/Raleway/Raleway-Regular.ttf'); /* IE9 Compat Modes */
   src: local(''),
-  url('./assets/fonts/Raleway/Raleway-Regular.ttf') format('truetype');
+    url('./assets/fonts/Raleway/Raleway-Regular.ttf') format('truetype');
   font-display: swap;
 }
 

@@ -8,8 +8,8 @@ function App() {
   const Game = lazy(() => import('./game/Game'));
   return (
     <div className={classes.app}>
+      <Header />
       <div className={classes['main-container']}>
-        <Header />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<Navigate to="/game" replace />} />

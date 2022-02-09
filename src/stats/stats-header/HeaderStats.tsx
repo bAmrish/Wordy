@@ -17,20 +17,6 @@ const HeaderStats = () => {
           {gameWon} / {totalGames}
         </Link>
       </div>
-      <div className={classes.tooltip}>
-        <div className={classes['game-stats']}>
-          <span className={classes['stats-label']}>Played :</span>
-          <span className={classes['stats-value']}>{totalGames}</span>
-        </div>
-        <div className={classes['game-stats']}>
-          <span className={classes['stats-label']}>Won :</span>
-          <span className={classes['stats-value']}>{gameWon}</span>
-        </div>
-        <div className={classes['game-stats']}>
-          <span className={classes['stats-label']}>Lost :</span>
-          <span className={classes['stats-value']}>{totalGames - gameWon}</span>
-        </div>
-      </div>
     </div>
   );
 };
