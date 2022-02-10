@@ -96,15 +96,27 @@ const Row: FC<{
   };
 
   const className = `${classes.row} ${classes[row.name]}`;
-  const rowNodes = row.keys.map((key: KeyModel) => (
-    <Key key={key.text} theKey={key} onKey={keyHandler} />
-  ));
+  const rowNodes = row.keys.map((key: KeyModel) => {
+    const isBackspace = key.value === 'Backspace';
+    return (
+      <Key
+        key={key.text}
+        theKey={key}
+        onKey={keyHandler}
+        isBackspace={isBackspace}
+      />
+    );
+  });
   return <div className={className}>{rowNodes}</div>;
 };
 
-const Key: FC<{ theKey: KeyModel; onKey: (key: string) => void }> = props => {
+const Key: FC<{
+  theKey: KeyModel;
+  onKey: (key: string) => void;
+  isBackspace?: boolean;
+}> = props => {
   const { className, text, value, status } = props.theKey;
-
+  const isBackspace = props.isBackspace || false;
   let keyClasses = classes.key;
 
   if (className) {
@@ -133,7 +145,13 @@ const Key: FC<{ theKey: KeyModel; onKey: (key: string) => void }> = props => {
   };
   return (
     <button className={keyClasses} onClick={keyHandler}>
-      {text.toUpperCase()}
+      {!isBackspace ? (
+        text.toUpperCase()
+      ) : (
+        <span className={'material-icons-sharp ' + classes.icon}>
+          backspace
+        </span>
+      )}
     </button>
   );
 };

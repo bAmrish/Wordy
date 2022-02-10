@@ -44,6 +44,16 @@ const GuessDistributionBar: FC<{ games: GameModel[] }> = props => {
 
       xAxis: {
         bounds: 'ticks',
+        title: {
+          display: true,
+          text: 'Guess Distribution',
+          color,
+          font: {
+            weight: 'normal',
+            size: 16,
+            family: 'Raleway',
+          },
+        },
         ticks: {
           color: color,
           font: {
@@ -60,16 +70,6 @@ const GuessDistributionBar: FC<{ games: GameModel[] }> = props => {
     },
 
     plugins: {
-      title: {
-        display: true,
-        color: color,
-        text: 'Guess Distribution',
-        font: {
-          weight: 'normal',
-          size: 18,
-        },
-      },
-
       legend: { display: false },
       tooltip: { enabled: false },
     },

@@ -1,9 +1,28 @@
 @import "../variables.css";
 
 .stats {
+    color: var(--primary-text);
     display: flex;
     flex-direction: column;
     padding: 0 20px 20px;
     gap: 30px;
     position: relative;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid var(--primary-background);
+    padding-bottom: 20px;
+}
+
+.stats-row {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    padding-bottom: 20px;
 }

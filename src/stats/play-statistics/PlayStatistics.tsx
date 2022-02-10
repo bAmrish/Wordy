@@ -12,11 +12,10 @@ const PlayStatistics: FC<{ games: GameModel[] }> = props => {
 
   return (
     <div className={classes['play-statistics']}>
-      <div className={classes['title']}>Play Statistics</div>
       <div className={classes['cards']}>
-        <Card value={played} title="played" />
-        <Card value={won} title="won" className={classes.won} />
-        <Card value={lost} title="lost" className={classes.lost} />
+        <Card value={played} title="Played" />
+        <Card value={won} title="Won" className={classes.won} />
+        <Card value={lost} title="Lost" className={classes.lost} />
         <Card value={percentWon.toFixed(2) + ' %'} title="% Won" />
       </div>
     </div>
@@ -37,7 +36,7 @@ const Card: FC<{
   return (
     <div className={classes['card']}>
       <div className={cardValueClass}>{value}</div>
-      <div className={classes['card-title']}>{title.toUpperCase()}</div>
+      <div className={classes['card-title']}>{title}</div>
     </div>
   );
 };

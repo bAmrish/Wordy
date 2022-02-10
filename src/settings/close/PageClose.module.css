@@ -1,8 +1,8 @@
 
 .close {
     position: absolute;
-    right: 10px;
-    top: -20px;
+    right: 20px;
+    top: 0;
     cursor: pointer;
     user-select: none;
 }

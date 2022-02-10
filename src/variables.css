@@ -110,18 +110,17 @@
 }
 
 .dark {
-  --primary-background: #000000;
+  --primary-background: #434343;
   --primary-text: white;
 
-  --secondary-background: rgb(18, 17, 16);
+  --secondary-background: #313131;
   --secondary-text: white;
 
   --tertiary-background: #ff7a00;
   --tertiary-text: #6eeee3;
 
   /* Overrides */
-  --tile-border-color: var(--secondary-background);
-  /*--tile-selected-border-color: var(--secondary-background);*/
-  --tile-selected-border-color: var(--tertiary-text);
+  --tile-border-color: black;
+    --tile-selected-border-color: black;
 
 }

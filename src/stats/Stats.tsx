@@ -10,8 +10,16 @@ const Stats = () => {
   return (
     <div className={classes.stats}>
       <PageClose />
-      <PlayStatistics games={games} />
-      <GuessDistributionBar games={games} />
+      <div className={classes['title']}>
+        <span className="material-icons">leaderboard</span> &nbsp; Your Play
+        Stats
+      </div>
+      <div className={classes['stats-row']}>
+        <PlayStatistics games={games} />
+      </div>
+      <div className={classes['stats-row']}>
+        <GuessDistributionBar games={games} />
+      </div>
     </div>
   );
 };
