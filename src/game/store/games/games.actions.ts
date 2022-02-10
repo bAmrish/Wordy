@@ -125,14 +125,14 @@ const gamesActions = {
         game.status = 'WON';
         dispatch(
           uiStore.actions.success(
-            `You Guessed it! The answer was "${answer.toUpperCase()}". Press enter to start a new game.`
+            `You Guessed it! The answer was "${answer.toUpperCase()}". Press Enter to Start a New Game.`
           )
         );
       } else if (currentRowIndex === rows.length - 1) {
         game.status = 'LOST';
         dispatch(
           uiStore.actions.error(
-            `The word was "${answer.toUpperCase()}". Press enter to start a new game.`
+            `The word was "${answer.toUpperCase()}". Press Enter to Start a New Game.`
           )
         );
       } else {
