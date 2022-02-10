@@ -7,6 +7,7 @@ import { useAppSelector } from './game/store/store.hooks';
 function App() {
   const Stats = lazy(() => import('./stats/Stats'));
   const Game = lazy(() => import('./game/Game'));
+  const Settings = lazy(() => import('./settings/Settings'));
   const theme = useAppSelector(state => state.ui.theme);
   return (
     <div className={`${classes.app} theme ${theme}`}>
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Navigate to="/game" replace />} />
             <Route path="/game" element={<Game />} />
             <Route path="/stats" element={<Stats />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </Suspense>
       </div>

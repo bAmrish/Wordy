@@ -13,10 +13,10 @@ const getInitialState = () => {
   let ui: UIState;
 
   if (!stateObject.ui) {
-    ui = { notification: null, theme: 'dark' };
+    ui = { notification: null, theme: 'light' };
   } else {
     const notification = stateObject.ui.notification || null;
-    const theme = stateObject.ui.theme || 'dark';
+    const theme = stateObject.ui.theme || 'light';
     ui = { notification, theme };
   }
 

@@ -10,7 +10,7 @@ export interface UIState {
 
 const initialState: UIState = {
   notification: null,
-  theme: 'dark',
+  theme: 'light',
 };
 
 const uiStore = createSlice({
