@@ -32,9 +32,13 @@ const Header = () => {
         </h1>
         <div className={classes['actions']}>
           <div className={classes['theme-switcher']}>
-            <label>Dark</label>
+            <label>
+              <span className="material-icons">nights_stay</span>
+            </label>
             <Toggle onSwitch={toggleSwitchHandler} value={toggleValue} />
-            <label>Light</label>
+            <label>
+              <span className="material-icons">light_mode</span>
+            </label>
           </div>
           <HeaderStats />
         </div>
