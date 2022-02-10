@@ -3,15 +3,14 @@
 .header {
   display: flex;
   justify-content: space-around;
-  background-color: var(--primary-background);
-  color: var(--primary-text-color);
+  background-color: var(--header-background);
+  color: var(--header-text);
 }
 
 .header .main-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   width: 100vw;
@@ -29,7 +28,8 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 .title {
-  font-family: Raleway, Quintessential, sans-serif;
+  font-family: Raleway, sans-serif;
   text-align: center;
 }

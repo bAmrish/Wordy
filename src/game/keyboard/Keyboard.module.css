@@ -42,19 +42,10 @@
     border: 0;
 }
 
-.key:hover {
-    background-color: #6f6f5d;
-}
-
-.key:active {
-    background-color: #3c3c33;
-}
-
 .key.enter, .key.backspace {
-    background-color: var(--key-text);
-    color: var(--key-background);
+    background-color: var(--key-special-background);
+    color: var(--key-special-text);
     font-size: 1.3rem;
-    border: 1px solid #5d5d59;
     flex-grow: 2;
     font-weight: bold;
 }
@@ -64,20 +55,22 @@
 }
 
 @media (max-width: 360px) {
-    .key.enter {
+    .key.enter, .key.backspace {
         font-size: 0.8rem;
     }
 }
 
 .key.success {
-    background-color: var(--success);
+    background-color: var(--key-success-background);
+    color: var(--key-success-text)
 }
 
 .key.warn {
-    background-color: var(--warn);
+    background-color: var(--key-warn-background);
+    color: var(--key-warn-text)
 }
 
 .key.incorrect {
-    background-color: var(--disabled-background);;
-    color: var(--disabled-text);;
+    background-color: var(--key-incorrect-background);
+    color: var(--key-incorrect-text)
 }

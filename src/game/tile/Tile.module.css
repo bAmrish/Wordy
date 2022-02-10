@@ -1,7 +1,8 @@
 @import "../../variables.css";
 
 .tile {
-    background-color: #f6fcff;
+    background-color: var(--tile-background);
+    color: var(--tile-text);
     font-size: 1.2rem;
     display: inline-flex;
     justify-content: center;
@@ -11,22 +12,26 @@
 }
 
 .tile.success {
-    background-color: var(--success);
+    background-color: var(--tile-success-background);
+    color: var(--tile-success-text);
 }
 
 .tile.selected {
-    border: 3px solid black;
+    border: 3px solid var(--tile-selected-border-color);
 }
 
 .tile.incorrect {
-    background-color: var(--disabled-text);
+    background-color: var(--tile-incorrect-background);
+    color: var(--tile-incorrect-text);
 }
 
 .tile.warn {
-    background-color: var(--warn);
+    background-color: var(--tile-warn-background);
+    color: var(--tile-warn-text);
 }
 
 .tile.disabled {
-    background-color: var(--disabled-background);
+    background-color: var(--tile-disabled-background);
+    color: var(--tile-disabled-text);
 }
 

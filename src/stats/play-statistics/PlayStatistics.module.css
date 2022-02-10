@@ -1,3 +1,4 @@
+@import "../../variables.css";
 
 .play-statistics {
     display: flex;
@@ -9,7 +10,7 @@
 
 .title {
     text-align: center;
-    color: #6eeee3;
+    color: var(--play-stats-title-color);
     font-size: 18px;
     font-family: Raleway, sans-serif;
     -moz-osx-font-smoothing: auto;
@@ -32,7 +33,7 @@
 
 .card-title {
     text-align: center;
-    color: #6eeee3;
+    color: var(--play-stats-card-title-color);
 }
 
 .card-value {
@@ -41,9 +42,9 @@
     align-items: center;
     width: 50px;
     white-space: nowrap;
-    border: 2px solid #6eeee3;
-    background-color: #6eeee333;
-    backdrop-filter: contrast(0);
+    border: 2px solid var(--play-stats-card-value-border);
+    background-color: var(--play-stats-card-value-bg);
+    color: var(--play-stats-card-value-text);
     padding: 10px;
     aspect-ratio: 1;
     border-radius: 10px;
@@ -57,11 +58,13 @@
 }
 
 .card-value.won {
-    background-color: var(--success-semi-transparent);
-    border: 2px solid var(--success);
+    background-color: var(--play-stats-card-success-bg);
+    color: var(--play-stats-card-success-text);
+    border: 2px solid var(--play-stats-card-success-border);
 }
 
 .card-value.lost {
-    background-color: var(--warn-semi-transparent);
-    border: 2px solid var(--warn);
+    background-color: var(--play-stats-card-warn-bg);
+    color: var(--play-stats-card-warn-text);
+    border: 2px solid var(--play-stats-card-warn-border);
 }

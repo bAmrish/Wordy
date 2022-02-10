@@ -1,16 +1,97 @@
 :root {
-  --body-background: #000000;
   --primary-background: #000000;
-  --primary-text-color: white;
-  --secondary-background: #bfc2a2;
-  --secondary-text: #302718;
-  --warn: #f59f2a;
-  --warn-semi-transparent: #f59f2a66;
-  --success: #75f102;
+  --primary-text: white;
+
+  --secondary-background: rgb(18, 17, 16);
+  --secondary-text: white;
+
+  --tertiary-background: #ff7a00;
+  --tertiary-text: #6eeee3;
+
+  --success-background: #75f102;
   --success-semi-transparent: #75f10266;
+  --success-text: black;
+
+  --warn-background: #f59f2a;
+  --warn-semi-transparent: #f59f2a66;
+  --warn-text: black;
+
+  --error-background: #f5602a;
+  --error-semi-transparent: #f5602a66;
+  --error-text: black;
+
   --disabled-background: #8d8d8dcc;
   --disabled-text: #d2d1d1;
 
-  --key-background: black;
-  --key-text: white;
+
+
+  /* Global colors */
+  --body-background: var(--primary-background);
+
+  /* App component */
+  --app-background: var(--secondary-background);
+  --app-text: var(--secondary-text);
+
+  /* Header component */
+  --header-background: var(--primary-background);
+  --header-text: var(--primary-text);;
+
+  /* Tile component */
+  --tile-background: white;
+  --tile-text: black;
+  --tile-success-background: var(--success-background);
+  --tile-success-text: var(--success-text);
+  --tile-warn-background: var(--warn-background);
+  --tile-warn-text: var(--warn-text);
+  --tile-incorrect-background: #b9b7b7;
+  --tile-incorrect-text: #767474;
+  --tile-disabled-background: var(--disabled-background);
+  --tile-disabled-text: var(--disabled-text);
+  --tile-selected-border-color: var(--secondary-background);
+
+  /* Keyboard component */
+  --key-background: var(--primary-text);
+  --key-text: var(--primary-background);
+
+  --key-special-background: var(--tertiary-text);
+  --key-special-text: var(--primary-background);
+
+  --key-success-background: var(--success-background);
+  --key-success-text: var(--success-text);
+  --key-warn-background: var(--warn-background);
+  --key-warn-text: var(--warn-text);
+  --key-incorrect-background: #b9b7b7;
+  --key-incorrect-text: #767474;
+
+  /* Play Stats component */
+
+  --play-stats-title-color: var(--tertiary-text);
+  --play-stats-card-title-color: var(--tertiary-text);
+  --play-stats-card-value-bg: #6eeee366;
+
+  --play-stats-card-value-border: var(--tertiary-text);
+  --play-stats-card-value-text: var(--primary-text);
+
+  --play-stats-card-success-bg: var(--success-semi-transparent);
+  --play-stats-card-success-text: var(--primary-text);
+  --play-stats-card-success-border: var(--success-background);
+
+  --play-stats-card-warn-bg: var(--warn-semi-transparent);
+  --play-stats-card-warn-text: var(--primary-text);
+  --play-stats-card-warn-border: var(--warn-background);
+
+  /* Message component */
+
+  --message-success-background: transparent;
+  --message-success-text: var(--success-background);
+  --message-success-border: var(--success-background);
+
+  --message-warn-background: transparent;
+  --message-warn-text: var(--warn-background);
+  --message-warn-border: var(--warn-background);
+
+  --message-error-background: transparent;
+  --message-error-text: var(--error-background);
+  --message-error-border: var(--error-background);
+
 }

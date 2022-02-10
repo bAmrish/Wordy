@@ -15,7 +15,7 @@ body {
   font-family: Raleway, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--body-background);
+  background-color: var(--app-background);
 }
 
 code {

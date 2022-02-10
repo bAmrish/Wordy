@@ -10,18 +10,21 @@
 }
 
 .message.error {
-    color: #fe2600;
-    border-color: #fe2600;
+    background-color: var(--message-error-background);
+    color: var(--message-error-text);
+    border-color: var(--message-error-border);
 }
 
 .message.warn {
-    color: #e28e56;
-    border-color: #e28e56;
+    background-color: var(--message-warn-background);
+    color: var(--message-warn-text);
+    border-color: var(--message-warn-border);
 }
 
 .message.success {
-    color: #1fb942;
-    border-color: #62f954;
+    background-color: var(--message-success-background);
+    color: var(--message-success-text);
+    border-color: var(--message-success-border);
 }
 
 @media (max-width: 400px) {
