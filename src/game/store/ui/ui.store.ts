@@ -1,13 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import MessageModel from '../../models/message.model';
 
+export type ThemeOption = 'light' | 'dark';
+
 export interface UIState {
   notification: MessageModel | null;
+  theme: ThemeOption;
 }
 
 const initialState: UIState = {
   notification: null,
+  theme: 'dark',
 };
+
 const uiStore = createSlice({
   name: 'ui',
   initialState,
@@ -31,7 +36,12 @@ const uiStore = createSlice({
     clearNotification: (state: UIState) => {
       state.notification = null;
     },
+
+    setTheme: (state: UIState, action: PayloadAction<ThemeOption>) => {
+      state.theme = action.payload;
+    },
   },
 });
 
+export const uiActions = uiStore.actions;
 export default uiStore;

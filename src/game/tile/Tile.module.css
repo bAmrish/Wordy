@@ -9,6 +9,7 @@
     align-items: center;
     border-radius: 5px;
     text-transform: uppercase;
+    border: 1px solid var(--tile-border-color)
 }
 
 .tile.success {

@@ -9,7 +9,17 @@ const getInitialState = () => {
     return;
   }
   const stateObject = JSON.parse(serializedState);
-  const ui: UIState = stateObject.ui ? stateObject.ui : { notification: null };
+
+  let ui: UIState;
+
+  if (!stateObject.ui) {
+    ui = { notification: null, theme: 'dark' };
+  } else {
+    const notification = stateObject.ui.notification || null;
+    const theme = stateObject.ui.theme || 'dark';
+    ui = { notification, theme };
+  }
+
   const gamesObject: AppState = stateObject.games;
 
   if (!gamesObject || !gamesObject.currentGame || !gamesObject.games) {

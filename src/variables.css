@@ -1,12 +1,4 @@
-:root {
-  --primary-background: #000000;
-  --primary-text: white;
-
-  --secondary-background: rgb(18, 17, 16);
-  --secondary-text: white;
-
-  --tertiary-background: #ff7a00;
-  --tertiary-text: #6eeee3;
+.theme {
 
   --success-background: #75f102;
   --success-semi-transparent: #75f10266;
@@ -24,12 +16,12 @@
   --disabled-text: #d2d1d1;
 
 
-
   /* Global colors */
   --body-background: var(--primary-background);
 
   /* App component */
   --app-background: var(--secondary-background);
+  --app-container-backgorund: var(--secondary-background);
   --app-text: var(--secondary-text);
 
   /* Header component */
@@ -39,6 +31,7 @@
   /* Tile component */
   --tile-background: white;
   --tile-text: black;
+  --tile-border-color: var(--secondary-text);
   --tile-success-background: var(--success-background);
   --tile-success-text: var(--success-text);
   --tile-warn-background: var(--warn-background);
@@ -47,7 +40,7 @@
   --tile-incorrect-text: #767474;
   --tile-disabled-background: var(--disabled-background);
   --tile-disabled-text: var(--disabled-text);
-  --tile-selected-border-color: var(--secondary-background);
+  --tile-selected-border-color: var(--secondary-text);
 
   /* Keyboard component */
   --key-background: var(--primary-text);
@@ -96,5 +89,39 @@
   --message-error-background: transparent;
   --message-error-text: var(--error-background);
   --message-error-border: var(--error-background);
+}
+
+
+
+.light {
+  --primary-background: #cbcbcb;
+  --primary-text: black;
+
+  --secondary-background: white;
+  --secondary-text: #000000;
+
+  --tertiary-background: #ff7a00;
+  --tertiary-text: #04201e;
+
+
+  /* Overrides */
+  --message-success-text: #60bc04;
+  --message-success-border: #60bc04;
+}
+
+.dark {
+  --primary-background: #000000;
+  --primary-text: white;
+
+  --secondary-background: rgb(18, 17, 16);
+  --secondary-text: white;
+
+  --tertiary-background: #ff7a00;
+  --tertiary-text: #6eeee3;
+
+  /* Overrides */
+  --tile-border-color: var(--secondary-background);
+  /*--tile-selected-border-color: var(--secondary-background);*/
+  --tile-selected-border-color: var(--tertiary-text);
 
 }

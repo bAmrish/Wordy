@@ -7,6 +7,7 @@
   color: var(--header-text);
 }
 
+
 .header .main-container {
   display: flex;
   justify-content: space-between;
@@ -17,6 +18,13 @@
   min-width: 240px;
   max-width: 640px;
   margin: 0 auto;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .header h1 {
@@ -32,4 +40,9 @@ a {
 .title {
   font-family: Raleway, sans-serif;
   text-align: center;
+}
+
+.theme-switcher {
+  display: flex;
+  gap: 10px
 }
