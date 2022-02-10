@@ -1,15 +1,28 @@
 import classes from './Header.module.css';
 import HeaderStats from '../stats/stats-header/HeaderStats';
 import { Link } from 'react-router-dom';
-import { ThemeOption, uiActions } from '../game/store/ui/ui.store';
-import { useAppDispatch } from '../game/store/store.hooks';
+import { uiActions } from '../game/store/ui/ui.store';
+import { useAppDispatch, useAppSelector } from '../game/store/store.hooks';
+import Toggle, { TogglePosition } from '../ui/toggle/Toggle';
 
 const Header = () => {
   const dispatch = useAppDispatch();
+  const selector = useAppSelector(state => state.ui.theme);
+  let toggleValue: TogglePosition = 'left';
 
-  const setTheme = (theme: ThemeOption) => {
-    console.log(theme);
-    dispatch(uiActions.setTheme(theme));
+  if (selector === 'light') {
+    toggleValue = 'right';
+  }
+
+  const toggleSwitchHandler = (type: TogglePosition) => {
+    switch (type) {
+      case 'left':
+        dispatch(uiActions.setTheme('dark'));
+        break;
+      case 'right':
+        dispatch(uiActions.setTheme('light'));
+        break;
+    }
   };
   return (
     <header className={classes['header']}>
@@ -19,8 +32,9 @@ const Header = () => {
         </h1>
         <div className={classes['actions']}>
           <div className={classes['theme-switcher']}>
-            <button onClick={setTheme.bind(null, 'dark')}>Dark</button>
-            <button onClick={setTheme.bind(null, 'light')}>Light</button>
+            <label>Dark</label>
+            <Toggle onSwitch={toggleSwitchHandler} value={toggleValue} />
+            <label>Light</label>
           </div>
           <HeaderStats />
         </div>

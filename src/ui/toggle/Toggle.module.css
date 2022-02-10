@@ -1,0 +1,28 @@
+
+.toggle {
+
+}
+
+.toggle-container {
+    width: 30px;
+    display: flex;
+    cursor: pointer;
+    background-color: #767474;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.toggle-knob {
+    width: 15px;
+    height: 15px;
+    background-color: #f1e9e9;
+    border-radius: 100%;
+}
+
+.toggle-container.left {
+    justify-content: flex-start;
+}
+
+.toggle-container.right {
+    justify-content: flex-end;
+}
