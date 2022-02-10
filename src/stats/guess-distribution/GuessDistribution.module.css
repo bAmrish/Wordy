@@ -1,0 +1,6 @@
+@import "../../variables.css";
+
+.guess-hidden {
+    display: none;
+    background-color: var(--guess-distribution-bg-color);
+}

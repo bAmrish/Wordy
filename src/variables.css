@@ -80,6 +80,9 @@
   --play-stats-card-warn-text: var(--primary-text);
   --play-stats-card-warn-border: var(--warn-background);
 
+  /* Guess Distribution component*/
+  --guess-distribution-bg-color: var(--tertiary-text);
+
   /* Message component */
 
   --message-success-background: transparent;

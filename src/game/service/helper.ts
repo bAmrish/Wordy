@@ -146,6 +146,26 @@ class HelperService {
     return clone;
   }
 
+  static rgbToHex(rgbString: string): string | null {
+    const componentToHex = (c: number) => {
+      const hex = c.toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    };
+
+    const rgb: number[] | undefined = rgbString
+      .match(/[0-9]+/g)
+      ?.map((c: string) => parseInt(c, 10));
+    if (rgb && rgb.length === 3) {
+      return (
+        '#' +
+        componentToHex(rgb[0]) +
+        componentToHex(rgb[1]) +
+        componentToHex(rgb[2])
+      );
+    }
+    return null;
+  }
+
   private static initTiles(): TileModel[] {
     const tiles: TileModel[] = [];
     for (let i = 0; i < 5; i++) {

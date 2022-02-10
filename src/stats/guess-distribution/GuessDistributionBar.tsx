@@ -1,4 +1,5 @@
 import { Bar } from 'react-chartjs-2';
+import classes from './GuessDistribution.module.css';
 
 import {
   BarElement,
@@ -10,9 +11,10 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
-import { FC } from 'react';
+import { createRef, FC, useEffect, useState } from 'react';
 import GameModel from '../../game/models/game.model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import HelperService from '../../game/service/helper';
 
 Chart.register(
   CategoryScale,
@@ -25,9 +27,9 @@ Chart.register(
 );
 
 const GuessDistributionBar: FC<{ games: GameModel[] }> = props => {
-  const color = '#6eeee3';
+  const [color, setColor] = useState('#6eeee3');
   const colorAlpha = `${color}66`;
-
+  const hiddenDiv = createRef<HTMLDivElement>();
   const options: ChartOptions = {
     responsive: true,
 
@@ -125,9 +127,23 @@ const GuessDistributionBar: FC<{ games: GameModel[] }> = props => {
     ],
   };
 
+  useEffect(() => {
+    if (hiddenDiv.current) {
+      const rgbColor = getComputedStyle(hiddenDiv.current).getPropertyValue(
+        'background-color'
+      );
+      const color = HelperService.rgbToHex(rgbColor);
+
+      if (color) {
+        setColor(color);
+      }
+    }
+  }, [hiddenDiv]);
+
   // noinspection RequiredAttributes
   return (
     <>
+      <div ref={hiddenDiv} className={classes['guess-hidden']} />
       {/*@ts-ignore*/}
       <Bar options={options} data={chartData} />
     </>
