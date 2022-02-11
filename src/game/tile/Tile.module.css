@@ -36,3 +36,36 @@
     color: var(--tile-disabled-text);
 }
 
+.item-enter.delay-0 {
+    animation: flip 300ms ease-in;
+}
+.item-enter.delay-1 {
+    animation: flip 300ms ease-in 300ms;
+}
+.item-enter.delay-2 {
+    animation: flip 300ms ease-in 600ms;
+}
+.item-enter.delay-3 {
+    animation: flip 300ms ease-in 900ms;
+}
+.item-enter.delay-4 {
+    animation: flip 300ms ease-in 1200ms;
+}
+
+.item-enter.tile {
+    background-color: var(--tile-background);
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(90deg);
+    }
+
+    100% {
+        transform: rotateY(0deg);
+    }
+}

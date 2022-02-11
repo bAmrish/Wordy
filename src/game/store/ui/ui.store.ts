@@ -6,11 +6,13 @@ export type ThemeOption = 'light' | 'dark';
 export interface UIState {
   notification: MessageModel | null;
   theme: ThemeOption;
+  animationsEnabled: boolean;
 }
 
-const initialState: UIState = {
+export const initialState: UIState = {
   notification: null,
   theme: 'light',
+  animationsEnabled: true,
 };
 
 const uiStore = createSlice({
@@ -39,6 +41,10 @@ const uiStore = createSlice({
 
     setTheme: (state: UIState, action: PayloadAction<ThemeOption>) => {
       state.theme = action.payload;
+    },
+
+    toggleAnimation: (state: UIState, action: PayloadAction<boolean>) => {
+      state.animationsEnabled = action.payload;
     },
   },
 });

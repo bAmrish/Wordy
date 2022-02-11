@@ -1,6 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import gamesStore, { AppState } from './games/games.store';
-import uiStore, { UIState } from './ui/ui.store';
+import uiStore, {
+  initialState as uiInitialState,
+  UIState,
+} from './ui/ui.store';
 import HelperService from '../service/helper';
 
 const getInitialState = () => {
@@ -10,14 +13,18 @@ const getInitialState = () => {
   }
   const stateObject = JSON.parse(serializedState);
 
-  let ui: UIState;
+  let ui: UIState = { ...uiInitialState };
 
-  if (!stateObject.ui) {
-    ui = { notification: null, theme: 'light' };
-  } else {
-    const notification = stateObject.ui.notification || null;
-    const theme = stateObject.ui.theme || 'light';
-    ui = { notification, theme };
+  if (stateObject.ui) {
+    if (stateObject.ui.notification) {
+      ui.notification = stateObject.ui.notification;
+    }
+    if (stateObject.ui.theme) {
+      ui.theme = stateObject.ui.theme;
+    }
+    if (stateObject.ui.animationsEnabled) {
+      ui.animationsEnabled = stateObject.ui.animationsEnabled;
+    }
   }
 
   const gamesObject: AppState = stateObject.games;
