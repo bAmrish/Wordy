@@ -1,6 +1,7 @@
 import classes from './Keyboard.module.css';
 import { FC, memo } from 'react';
 import { StatusType } from '../models/tile.model';
+import { useAppSelector } from '../store/store.hooks';
 
 class KeyModel {
   value: string;
@@ -54,7 +55,7 @@ const middleRow = new KeyboardRowModel('middle-row', [
   new KeyModel('k', 'k'),
   new KeyModel('l', 'l'),
 ]);
-const bottomRow = new KeyboardRowModel('bottom-row', [
+const bottomRowEnterRight = new KeyboardRowModel('bottom-row', [
   new KeyModel('Backspace', '\u21E6', 'backspace'),
   new KeyModel('z', 'z'),
   new KeyModel('x', 'x'),
@@ -65,6 +66,17 @@ const bottomRow = new KeyboardRowModel('bottom-row', [
   new KeyModel('m', 'm'),
   new KeyModel('Enter', 'ENTER', 'enter'),
 ]);
+const bottomRowEnterLeft = new KeyboardRowModel('bottom-row', [
+  new KeyModel('Enter', 'ENTER', 'enter'),
+  new KeyModel('z', 'z'),
+  new KeyModel('x', 'x'),
+  new KeyModel('c', 'c'),
+  new KeyModel('v', 'v'),
+  new KeyModel('b', 'b'),
+  new KeyModel('n', 'n'),
+  new KeyModel('m', 'm'),
+  new KeyModel('Backspace', '\u21E6', 'backspace'),
+]);
 
 const Keyboard: FC<{
   onKey: (key: string) => void;
@@ -73,6 +85,10 @@ const Keyboard: FC<{
   const keyHandler = (key: string) => {
     props.onKey(key);
   };
+
+  const enterLeft = useAppSelector(state => state.ui.enterLeft);
+  const bottomRow = enterLeft ? bottomRowEnterLeft : bottomRowEnterRight;
+
   topRow.keys.forEach(key => (key.status = props.keyStatus[key.value]));
   middleRow.keys.forEach(key => (key.status = props.keyStatus[key.value]));
   bottomRow.keys.forEach(key => (key.status = props.keyStatus[key.value]));

@@ -43,6 +43,8 @@
 }
 
 .key.enter, .key.backspace {
+    background-color: var(--key-special-background);
+    color: var(--key-special-text);
     border: 1px solid var(--key-special-text);
     font-size: 1.3rem;
     flex-grow: 2;

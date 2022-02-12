@@ -28,6 +28,9 @@ const getInitialState = () => {
     if (stateObject.ui.roundedTile) {
       ui.roundedTile = stateObject.ui.roundedTile;
     }
+    if (stateObject.ui.enterLeft) {
+      ui.enterLeft = stateObject.ui.enterLeft;
+    }
   }
 
   const gamesObject: AppState = stateObject.games;

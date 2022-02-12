@@ -46,8 +46,8 @@
   --key-background: var(--primary-text);
   --key-text: var(--primary-background);
 
-  --key-special-background: var(--tertiary-text);
-  --key-special-text: var(--primary-background);
+  --key-special-background: var(--primary-background);
+  --key-special-text: var(--primary-text);
 
   --key-success-background: var(--success-background);
   --key-success-text: var(--success-text);

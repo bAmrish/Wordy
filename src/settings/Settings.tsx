@@ -3,6 +3,7 @@ import ThemeSwitcher from './theme-switcher/ThemeSwitcher';
 import PageClose from './close/PageClose';
 import AnimationSwitch from './animation-switch/AnimationSwitch';
 import TileDesignSwitch from './tile-design-switch/TileDesignSwitch';
+import EnterPositionSwitch from './enter-position-switch/EnterPositionSwitch';
 
 const Settings = () => {
   return (
@@ -27,6 +28,12 @@ const Settings = () => {
         <div className={classes['setting-label']}>Tile Design</div>
         <div className={classes['setting-action']}>
           <TileDesignSwitch />
+        </div>
+      </div>
+      <div className={classes.setting}>
+        <div className={classes['setting-label']}>Enter Key Position</div>
+        <div className={classes['setting-action']}>
+          <EnterPositionSwitch />
         </div>
       </div>
     </div>

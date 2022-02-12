@@ -8,6 +8,7 @@ export interface UIState {
   theme: ThemeOption;
   animationsEnabled: boolean;
   roundedTile: boolean;
+  enterLeft: boolean;
 }
 
 export const initialState: UIState = {
@@ -15,6 +16,7 @@ export const initialState: UIState = {
   theme: 'light',
   animationsEnabled: true,
   roundedTile: false,
+  enterLeft: true,
 };
 
 const uiStore = createSlice({
@@ -51,6 +53,10 @@ const uiStore = createSlice({
 
     setRoundedTile: (state: UIState, action: PayloadAction<boolean>) => {
       state.roundedTile = action.payload;
+    },
+
+    setEnterLeft: (state: UIState, action: PayloadAction<boolean>) => {
+      state.enterLeft = action.payload;
     },
   },
 });
