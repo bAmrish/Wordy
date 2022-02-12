@@ -7,12 +7,14 @@ export interface UIState {
   notification: MessageModel | null;
   theme: ThemeOption;
   animationsEnabled: boolean;
+  roundedTile: boolean;
 }
 
 export const initialState: UIState = {
   notification: null,
   theme: 'light',
   animationsEnabled: true,
+  roundedTile: false,
 };
 
 const uiStore = createSlice({
@@ -45,6 +47,10 @@ const uiStore = createSlice({
 
     toggleAnimation: (state: UIState, action: PayloadAction<boolean>) => {
       state.animationsEnabled = action.payload;
+    },
+
+    setRoundedTile: (state: UIState, action: PayloadAction<boolean>) => {
+      state.roundedTile = action.payload;
     },
   },
 });

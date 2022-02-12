@@ -25,6 +25,9 @@ const getInitialState = () => {
     if (stateObject.ui.animationsEnabled) {
       ui.animationsEnabled = stateObject.ui.animationsEnabled;
     }
+    if (stateObject.ui.roundedTile) {
+      ui.roundedTile = stateObject.ui.roundedTile;
+    }
   }
 
   const gamesObject: AppState = stateObject.games;

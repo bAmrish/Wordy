@@ -11,7 +11,9 @@
     text-transform: uppercase;
     border: 1px solid var(--tile-border-color)
 }
-
+.rounded {
+    border-radius: 100%;
+}
 .tile.success {
     background-color: var(--tile-success-background);
     color: var(--tile-success-text);

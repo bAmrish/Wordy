@@ -6,8 +6,11 @@ import { CSSTransition } from 'react-transition-group';
 import usePrevious from '../../hooks/use-previous';
 import { useAppSelector } from '../store/store.hooks';
 
-const getTileClass = (status: StatusType): string => {
+const getTileClass = (status: StatusType, rounded: boolean): string => {
   let className = classes.tile;
+  if (rounded) {
+    className += ' ' + classes.rounded;
+  }
   switch (status) {
     case 'SELECTED':
       className += ' ' + classes.selected;
@@ -24,12 +27,11 @@ const getTileClass = (status: StatusType): string => {
     case 'DISABLED':
       className += ' ' + classes.disabled;
       break;
-    default:
-      break;
   }
 
   return className;
 };
+
 const getAnimationDetails = (tile: TileModel): [number, string] => {
   const idString = tile.id.match(/[0-9]+/);
   let delay = 0;
@@ -47,8 +49,10 @@ const Tile: FC<{ tile: TileModel }> = props => {
   const prevTile = usePrevious(tile);
   const [animate, setAnimate] = useState(false);
   const [delay, animationClass] = getAnimationDetails(tile);
-  const className = getTileClass(tile.status);
   const animationEnabled = useAppSelector(state => state.ui.animationsEnabled);
+  const rounded = useAppSelector(state => state.ui.roundedTile);
+  const className = getTileClass(tile.status, rounded);
+
   useEffect(() => {
     if (
       prevTile.status !== props.tile.status &&

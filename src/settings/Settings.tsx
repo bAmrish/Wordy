@@ -2,6 +2,7 @@ import classes from './Settings.module.css';
 import ThemeSwitcher from './theme-switcher/ThemeSwitcher';
 import PageClose from './close/PageClose';
 import AnimationSwitch from './animation-switch/AnimationSwitch';
+import TileDesignSwitch from './tile-design-switch/TileDesignSwitch';
 
 const Settings = () => {
   return (
@@ -20,6 +21,12 @@ const Settings = () => {
         <div className={classes['setting-label']}>Tile Animations</div>
         <div className={classes['setting-action']}>
           <AnimationSwitch />
+        </div>
+      </div>
+      <div className={classes.setting}>
+        <div className={classes['setting-label']}>Tile Design</div>
+        <div className={classes['setting-action']}>
+          <TileDesignSwitch />
         </div>
       </div>
     </div>
