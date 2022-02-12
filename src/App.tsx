@@ -3,6 +3,7 @@ import Header from './header/Header';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { useAppSelector } from './game/store/store.hooks';
+import Dialog from './ui/dialog/Dialog';
 
 function App() {
   const Stats = lazy(() => import('./stats/Stats'));
@@ -11,6 +12,7 @@ function App() {
   const theme = useAppSelector(state => state.ui.theme);
   return (
     <div className={`${classes.app} theme ${theme}`}>
+      <Dialog />
       <Header />
       <div className={classes['main-container']}>
         <Suspense fallback={<div>Loading...</div>}>
