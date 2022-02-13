@@ -1,34 +1,7 @@
 import classes from './Dialog.module.css';
 import { CSSTransition } from 'react-transition-group';
 import { useEffect, useState } from 'react';
-import { useAppSelector } from '../../game/store/store.hooks';
-
-const SuccessMessage = () => {
-  const game = useAppSelector(state => state.games.currentGame);
-  let content = <></>;
-  if (game) {
-    const answer = game.answer.split('').map((l, i) => (
-      <div key={i} className={classes['answer-tile']}>
-        {l}
-      </div>
-    ));
-    content = (
-      <div className={classes['success-message-container']}>
-        <div className={classes['message-row']}>
-          <span className={'material-icons-outlined ' + classes.icon}>
-            celebration
-          </span>
-          &nbsp; Congratulations!
-        </div>
-        <div className={classes['message-row']}>
-          You guessed the word correctly!
-        </div>
-        <div className={classes.answer}>{answer}</div>
-      </div>
-    );
-  }
-  return content;
-};
+import GameComplete from '../../game/dialogs/game-complete/GameComplete';
 
 const Dialog = () => {
   const [animate, setAnimate] = useState(false);
@@ -58,10 +31,7 @@ const Dialog = () => {
           </div>
           <div className={classes['dialog-title']}>You Win!</div>
           <div className={classes['dialog-content']}>
-            <SuccessMessage />
-          </div>
-          <div className={classes['dialog-actions']}>
-            <button>Start A New Game!</button>
+            <GameComplete />
           </div>
         </div>
       </CSSTransition>

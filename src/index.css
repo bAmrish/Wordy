@@ -36,3 +36,21 @@ button {
   border-radius: 0.2rem;
   box-shadow: none;
 }
+button:hover {
+  font-family: Raleway, sans-serif;
+  font-size: 0.8rem;
+  background-color: var(--tertiary-background);
+  border: 1px solid var(--tertiary-background);
+  color: #000000;
+  padding: 0.3rem 1rem;
+  cursor: pointer;
+  border-radius: 0.2rem;
+  box-shadow: none;
+}
+
+
+button.text {
+  background-color: transparent;
+  border: 0;
+  color: var(--tertiary-background);
+}

@@ -1,0 +1,100 @@
+
+.success-message-container {
+    color: var(--success-dialog-text);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1rem;
+}
+
+.message-row .icon {
+    display: inline-block;
+    margin-bottom: -30px;
+    color: var(--tertiary-background);
+}
+
+.success-message-container .message-row {
+    padding-bottom: 20px;
+}
+.actions {
+    border-top: 0 solid var(--primary-background);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    margin: 0 -20px -20px;
+}
+.replay {
+    margin-top: 20px;
+}
+.row {
+    margin-bottom: 5px;
+}
+
+.answer {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.tile {
+    color: var(--success-background);
+}
+
+.answer-tile {
+    font-size: 0.8rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    text-transform: uppercase;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--tile-border-color);
+    background-color: var(--tile-success-background);
+    color: var(--tile-success-text);
+    animation: 1000ms bounce ease-in 1;
+}
+
+.answer-tile:nth-child(1) {
+    animation-delay: 600ms;
+}
+
+.answer-tile:nth-child(2) {
+    animation-delay: 700ms;
+}
+
+.answer-tile:nth-child(3) {
+    animation-delay: 800ms;
+}
+
+.answer-tile:nth-child(4) {
+    animation-delay: 900ms;
+}
+
+.answer-tile:nth-child(5) {
+    animation-delay: 1000ms;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-50%);
+    }
+    50% {
+        transform: translateY(0%);
+    }
+    75% {
+        transform: translateY(50%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
