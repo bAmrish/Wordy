@@ -1,22 +1,32 @@
-
-.success-message-container {
-    color: var(--success-dialog-text);
+.message-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     line-height: 1rem;
+    gap: 20px;
+}
+
+.message-container.won {
+    color: var(--message-dialog-success-text);
+}
+
+.message-container.lost {
+    color: var(--message-dialog-warn-text);
 }
 
 .message-row .icon {
     display: inline-block;
-    margin-bottom: -30px;
-    color: var(--tertiary-background);
+    margin-bottom: 5px;
+    color: var(--message-dialog-warn-text);
 }
 
-.success-message-container .message-row {
-    padding-bottom: 20px;
+.message-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .actions {
     border-top: 0 solid var(--primary-background);
     display: flex;
@@ -25,9 +35,11 @@
     padding: 15px;
     margin: 0 -20px -20px;
 }
+
 .replay {
     margin-top: 20px;
 }
+
 .row {
     margin-bottom: 5px;
 }

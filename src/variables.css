@@ -91,7 +91,8 @@
   --message-error-border: var(--error-background);
 
   /*  Success Dialog */
-  --success-dialog-text: var(--success-background);
+  --message-dialog-success-text: var(--success-background);
+  --message-dialog-warn-text: var(--warn-background);
 }
 
 
@@ -112,7 +113,8 @@
   --message-success-border: #60bc04;
 
   /*  Success Dialog */
-  --success-dialog-text: #294f06;
+  --message-dialog-success-text: #294f06;
+  --message-dialog-warn-text: #ff7a00;
 }
 
 .dark {
@@ -127,6 +129,6 @@
 
   /* Overrides */
   --tile-border-color: black;
-    --tile-selected-border-color: black;
+  --tile-selected-border-color: black;
 
 }
