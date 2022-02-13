@@ -1,8 +1,7 @@
 import classes from './GameComplete.module.css';
 import TileModel from '../../models/tile.model';
 import GameModel, { GameStatus } from '../../models/game.model';
-import { useAppDispatch, useAppSelector } from '../../store/store.hooks';
-import gamesActions from '../../store/games/games.actions';
+import { FC } from 'react';
 
 const SUCCESS = '🟩';
 const WARN = '🟧';
@@ -22,9 +21,8 @@ const getSquare = (tile: TileModel) => {
 const share = (text: string) => {
   window.navigator.clipboard
     .writeText(text)
-    .then(r => {
+    .then(() => {
       console.log('Copied successfully to clipboard');
-      console.log({ r });
     })
     .catch(e => {
       console.log('Failed to copy to clipboard!');
@@ -57,9 +55,9 @@ const getGuessString = (game: GameModel) => {
 const getGuessNodes = (game: GameModel) => {
   return game.rows
     .filter(row => row.status !== 'DISABLED')
-    .map(row => {
+    .map((row, ri) => {
       return (
-        <div className={classes.row}>
+        <div className={classes.row} key={ri}>
           <span>{row.tiles.map(tile => getSquare(tile))}</span>
           <br />
         </div>
@@ -92,15 +90,11 @@ const getMessage = (type: GameStatus): JSX.Element => {
   }
 };
 
-const GameComplete = () => {
-  const game = useAppSelector(state => state.games.currentGame);
-  const dispatch = useAppDispatch();
-  if (!game) {
-    return <></>;
-  }
+const GameComplete: FC<{ game: GameModel; onNewGame: () => void }> = props => {
+  const game = props.game;
 
   const newGameHandler = () => {
-    dispatch(gamesActions.newGame());
+    props.onNewGame();
   };
   const answer = getAnswerTile(game.answer);
   const guessNode = getGuessNodes(game);

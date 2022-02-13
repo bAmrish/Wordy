@@ -1,16 +1,19 @@
 import classes from './Game.module.css';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import Board from './board/Board';
 import Message from './message/Message';
 import Keyboard from './keyboard/Keyboard';
 import { useAppDispatch, useAppSelector } from './store/store.hooks';
 import gamesActions from './store/games/games.actions';
 import { StatusType } from './models/tile.model';
+import Dialog from '../ui/dialog/Dialog';
+import GameComplete from './dialogs/game-complete/GameComplete';
 
 const Game = () => {
   const game = useAppSelector(state => state.games.currentGame);
   const dispatch = useAppDispatch();
   const keyStatus: { [key: string]: StatusType } = {};
+  const dialog = useContext(Dialog);
 
   const addChar = useCallback(
     (key: string) => {
@@ -58,6 +61,20 @@ const Game = () => {
     if (!game) {
       dispatch(gamesActions.newGame());
     }
+
+    if (game?.status === 'WON' || game?.status === 'LOST') {
+      const title = game.status === 'WON' ? 'You Won' : 'You Lost';
+      const newGameHandler = () => {
+        dispatch(gamesActions.newGame());
+      };
+      dialog.open(
+        <GameComplete game={game} onNewGame={newGameHandler} />,
+        title
+      );
+    } else {
+      dialog.close();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, game]);
 
   useEffect(() => {

@@ -1,19 +1,44 @@
 import classes from './Dialog.module.css';
 import { CSSTransition } from 'react-transition-group';
-import { useEffect, useState } from 'react';
-import GameComplete from '../../game/dialogs/game-complete/GameComplete';
+import { createContext, FC, useEffect, useState } from 'react';
 
-const Dialog = () => {
+type DialogType = {
+  open: (content: JSX.Element, title: string) => void;
+  close: () => void;
+};
+
+const Dialog = createContext<DialogType>({
+  open: () => {},
+  close: () => {},
+});
+
+export const DialogProvider: FC = props => {
   const [animate, setAnimate] = useState(false);
-  const [show, setShow] = useState(true);
-  const onClose = () => {
-    setShow(false);
-  };
+  const [show, setShow] = useState(false);
+  const [content, setContent] = useState<JSX.Element | null>(null);
+  const [title, setTitle] = useState('');
+
   useEffect(() => {
     setTimeout(() => {
       setAnimate(true);
     }, 300);
   });
+
+  const open = (content: JSX.Element, title: string) => {
+    setContent(content);
+    setShow(true);
+    setTitle(title);
+  };
+
+  const close = () => {
+    setContent(null);
+    setShow(false);
+    setTitle('');
+  };
+  const closeIcon = (
+    <span className={'material-icons-sharp ' + classes.icon}>clear</span>
+  );
+
   const mainContent = (
     <>
       <div className={classes.backdrop} />
@@ -24,20 +49,22 @@ const Dialog = () => {
         classNames={{ enter: classes['animation-enter'] }}
       >
         <div className={classes.dialog}>
-          <div className={classes.close} onClick={onClose}>
-            <span className={'material-icons-sharp ' + classes.icon}>
-              clear
-            </span>
+          <div className={classes.close} onClick={close}>
+            {closeIcon}
           </div>
-          <div className={classes['dialog-title']}>You Win!</div>
-          <div className={classes['dialog-content']}>
-            <GameComplete />
-          </div>
+          <div className={classes['dialog-title']}>{title}</div>
+          <div className={classes['dialog-content']}>{content}</div>
         </div>
       </CSSTransition>
     </>
   );
-  return show ? mainContent : <> </>;
+
+  return (
+    <Dialog.Provider value={{ open, close }}>
+      {show && mainContent}
+      {props.children}
+    </Dialog.Provider>
+  );
 };
 
 export default Dialog;
