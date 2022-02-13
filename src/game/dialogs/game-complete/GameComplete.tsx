@@ -94,8 +94,12 @@ const GameComplete: FC<{ game: GameModel; onNewGame: () => void }> = props => {
     const url = window.location.toString();
     const text = url + '\n\n' + getGuessString(game);
     let shared = false;
+    const isFirefox = /firefox/i.test(navigator.userAgent);
+
     try {
-      if (navigator.canShare && navigator.canShare({ text })) {
+      const canShare =
+        navigator.canShare && navigator.canShare({ text }) && !isFirefox;
+      if (canShare) {
         await navigator.share({
           title: 'Wordy Puzzle',
           text: `\n\n ${text}`,
