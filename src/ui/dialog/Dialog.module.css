@@ -19,7 +19,6 @@
     background-color: var(--secondary-background);
     color: var(--secondary-text);
     border: 1px solid var(--primary-background);
-    box-shadow: 1px 1px 1px var(--primary-background);
     border-radius: 5px;
     padding: 20px;
     min-width: 250px;
@@ -29,6 +28,13 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+.close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    user-select: none;
 }
 
 .dialog-title {
@@ -66,7 +72,7 @@
 }
 
 .success-message-container {
-    color: var(--secondary-text);
+    color: var(--success-dialog-text);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,9 +81,9 @@
 }
 
 .message-row .icon {
-    display: inline-flex;
-    color: green;
-    margin-top: -10px;
+    display: inline-block;
+    margin-bottom: -30px;
+    color: var(--tertiary-background);
 }
 
 .success-message-container .message-row {

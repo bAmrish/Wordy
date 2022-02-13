@@ -89,6 +89,9 @@
   --message-error-background: transparent;
   --message-error-text: var(--error-background);
   --message-error-border: var(--error-background);
+
+  /*  Success Dialog */
+  --success-dialog-text: var(--success-background);
 }
 
 
@@ -107,6 +110,9 @@
   /* Overrides */
   --message-success-text: #60bc04;
   --message-success-border: #60bc04;
+
+  /*  Success Dialog */
+  --success-dialog-text: #294f06;
 }
 
 .dark {
