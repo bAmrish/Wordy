@@ -40,6 +40,22 @@ const getCurrentStreak = (games: GameModel[]): number => {
   }
   return currentStreak;
 };
+const getGuesses = (game: GameModel): number => {
+  if (game.status === 'LOST') return game.rows.length + 1;
+  return game.rows.filter(row => row.status === 'EVALUATED').length;
+};
+const getAverageGuess = (games: GameModel[]): number => {
+  const allGames = games.filter(game => game.status === 'WON');
+  if (allGames.length === 0) {
+    return 0;
+  }
+  const totalGuesses = allGames.reduce(
+    (total, next) => total + getGuesses(next),
+    0
+  );
+
+  return totalGuesses / allGames.length;
+};
 
 const PlayStatistics: FC<{ games: GameModel[] }> = props => {
   const games = props.games.filter(game => game.status !== 'PLAYING');
@@ -51,7 +67,7 @@ const PlayStatistics: FC<{ games: GameModel[] }> = props => {
 
   const longestStreak = getLongestStreak(games.slice());
   const currentStreak = getCurrentStreak(games.slice());
-
+  const averageGuess = getAverageGuess(games.slice());
   return (
     <div className={classes['play-statistics']}>
       <div className={classes['cards']}>
@@ -63,6 +79,7 @@ const PlayStatistics: FC<{ games: GameModel[] }> = props => {
       <div className={classes['cards']}>
         <Card value={currentStreak} title="Current Streak" />
         <Card value={longestStreak} title="Longest Streak" />
+        <Card value={averageGuess.toFixed(2)} title="Average Guess" />
       </div>
     </div>
   );
