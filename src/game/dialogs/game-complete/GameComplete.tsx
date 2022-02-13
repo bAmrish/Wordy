@@ -1,7 +1,7 @@
 import classes from './GameComplete.module.css';
 import TileModel from '../../models/tile.model';
 import GameModel, { GameStatus } from '../../models/game.model';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 const SUCCESS = '🟩';
 const WARN = '🟧';
@@ -16,18 +16,6 @@ const getSquare = (tile: TileModel) => {
     default:
       return INCORRECT;
   }
-};
-
-const share = (text: string) => {
-  window.navigator.clipboard
-    .writeText(text)
-    .then(() => {
-      console.log('Copied successfully to clipboard');
-    })
-    .catch(e => {
-      console.log('Failed to copy to clipboard!');
-      console.log({ e });
-    });
 };
 
 const getAnswerTile = (answer: string) => {
@@ -92,6 +80,7 @@ const getMessage = (type: GameStatus): JSX.Element => {
 
 const GameComplete: FC<{ game: GameModel; onNewGame: () => void }> = props => {
   const game = props.game;
+  const [notifyMessage, setNotifyMessage] = useState<string | null>();
 
   const newGameHandler = () => {
     props.onNewGame();
@@ -101,9 +90,33 @@ const GameComplete: FC<{ game: GameModel; onNewGame: () => void }> = props => {
   const message = getMessage(game.status);
   const classNames = [classes['message-container']];
 
+  const shareResultsHandler = async () => {
+    const url = window.location;
+    const text = url + '\n\n' + getGuessString(game);
+    let shared = false;
+    try {
+      if (navigator.canShare && navigator.canShare()) {
+        await navigator.share({ text });
+        setNotifyMessage('Results Shared.');
+        shared = true;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    if (!shared) {
+      try {
+        await window.navigator.clipboard.writeText(text);
+        setNotifyMessage('Results Copied to Clipboard.');
+      } catch (error) {
+        setNotifyMessage(
+          'Unable to share results. Your browser may not support it.'
+        );
+      }
+    }
+  };
+
   if (game.status === 'WON') {
     classNames.push(classes.won);
-    share(getGuessString(game));
   }
 
   if (game.status === 'LOST') {
@@ -116,9 +129,12 @@ const GameComplete: FC<{ game: GameModel; onNewGame: () => void }> = props => {
       {game.status === 'WON' && (
         <div className={classes.replay}>{guessNode}</div>
       )}
+      {notifyMessage && <div className={classes.message}>{notifyMessage}</div>}
       <div className={classes['actions']}>
         {game.status === 'WON' && (
-          <button className={'text'}>Share Result</button>
+          <button className={'text'} onClick={shareResultsHandler}>
+            Share Result
+          </button>
         )}
         <button onClick={newGameHandler}>Start A New Game!</button>
       </div>
