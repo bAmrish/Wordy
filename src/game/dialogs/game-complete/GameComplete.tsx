@@ -91,12 +91,15 @@ const GameComplete: FC<{ game: GameModel; onNewGame: () => void }> = props => {
   const classNames = [classes['message-container']];
 
   const shareResultsHandler = async () => {
-    const url = window.location;
+    const url = window.location.toString();
     const text = url + '\n\n' + getGuessString(game);
     let shared = false;
     try {
-      if (navigator.canShare && navigator.canShare()) {
-        await navigator.share({ text });
+      if (navigator.canShare && navigator.canShare({ text })) {
+        await navigator.share({
+          title: 'Wordy Puzzle',
+          text: `\n\n ${text}`,
+        });
         setNotifyMessage('Results Shared.');
         shared = true;
       }
