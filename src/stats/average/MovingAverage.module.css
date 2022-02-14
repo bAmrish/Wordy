@@ -1,4 +1,7 @@
-@import "../../variables.css";
+.moving-average {
+    display: flex;
+    width: 100%;
+}
 
 .configure-hidden {
     display: none;

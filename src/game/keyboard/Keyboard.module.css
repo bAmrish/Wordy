@@ -28,7 +28,7 @@
 }
 
 
-.key {
+.key, .key:hover, .key:active {
     width: 10%;
     font-size: 1.3rem;
     font-family: monospace;

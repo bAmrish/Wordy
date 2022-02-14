@@ -143,7 +143,7 @@ const GuessDistributionBar: FC<{ games: GameModel[] }> = props => {
   // noinspection RequiredAttributes
   return (
     <>
-      <div ref={hiddenDiv} className={classes['guess-hidden']} />
+      <div ref={hiddenDiv} className={classes['configure-hidden']} />
       {/*@ts-ignore*/}
       <Bar options={options} data={chartData} />
     </>

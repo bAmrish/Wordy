@@ -45,7 +45,7 @@ const getGuesses = (game: GameModel): number => {
   return game.rows.filter(row => row.status === 'EVALUATED').length;
 };
 const getAverageGuess = (games: GameModel[]): number => {
-  const allGames = games.filter(game => game.status === 'WON');
+  const allGames = games;
   if (allGames.length === 0) {
     return 0;
   }

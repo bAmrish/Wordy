@@ -3,6 +3,7 @@ import { useAppSelector } from '../game/store/store.hooks';
 import GuessDistributionBar from './guess-distribution/GuessDistributionBar';
 import PlayStatistics from './play-statistics/PlayStatistics';
 import PageClose from '../settings/close/PageClose';
+import MovingAverage from './average/MovingAverage';
 
 const Stats = () => {
   const games = useAppSelector(state => state.games.games);
@@ -19,6 +20,9 @@ const Stats = () => {
       </div>
       <div className={classes['stats-row']}>
         <GuessDistributionBar games={games} />
+      </div>
+      <div className={classes['stats-row']}>
+        <MovingAverage games={games} />
       </div>
     </div>
   );
